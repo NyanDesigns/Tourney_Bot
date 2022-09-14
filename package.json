@@ -1,0 +1,30 @@
+{
+  "name": "tourney_bot",
+  "version": "1.0.0",
+  "description": "A Twitch Live Tournament-Assist Bot, using Node.js with twitch.api and googlesheets.api.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NyanDesigns/Tourney_Bot.git"
+  },
+  "keywords": [
+    "Twitch_Bot",
+    "Twitch_Tournament",
+    "Node.js",
+    "Twitch.api",
+    "Google.api"
+  ],
+  "author": "Nyan-Designs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NyanDesigns/Tourney_Bot/issues"
+  },
+  "homepage": "https://github.com/NyanDesigns/Tourney_Bot#readme",
+  "dependencies": {
+    "tmi.js": "^1.8.5"
+  }
+}
