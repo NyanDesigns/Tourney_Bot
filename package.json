@@ -2,9 +2,9 @@
   "name": "tourney_bot",
   "version": "1.0.0",
   "description": "A Twitch Live Tournament-Assist Bot, using Node.js with twitch.api and googlesheets.api.",
-  "main": "index.js",
+  "main": "src",
   "scripts": {
-    "start": "node index.js",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/NyanDesigns/Tourney_Bot#readme",
   "dependencies": {
+    "dotenv": "^16.0.2",
     "tmi.js": "^1.8.5"
   }
 }
