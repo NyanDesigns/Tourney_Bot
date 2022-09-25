@@ -1,9 +1,13 @@
-//Twitch-Variables
+//Rgular-Expression//
+//More info on reGex/ regExp - https://regexr.com
+const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
+
+//Twitch-Variables//
 const userName = process.env.T_USERNAME;
 const userPass = process.env.T_OAUTH_TOKEN;
 const targetChannel = process.env.T_CHANNEL;
 
-//Twitch-Options
+//Twitch-Options//
 const opts = {
     options: { debug: true,},
         connection: {
@@ -21,4 +25,4 @@ const opts = {
             channels: [ targetChannel ]
             };
 
-module.exports = {userName, userPass, targetChannel, opts};
+module.exports = {regexpCommand, userName, userPass, targetChannel, opts};

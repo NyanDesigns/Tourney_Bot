@@ -1,3 +1,5 @@
+////IMOPRT////
+
 //Load-.ENV-MODULE//
 require('dotenv').config();
 
@@ -9,23 +11,31 @@ const con = require("./constants.js");
 const tmi = require('tmi.js');
 const { channel } = require('tmi.js/lib/utils');
 
-//Bot-Connect-to-Twitch
-const client = new tmi.client(con.opts);
 
+
+////TWITCH-FUNCTIONS////
+
+//Bot-Connect-to-Twitch//
+const client = new tmi.client(con.opts);
 client.connect().catch(console.error);
 
-//Bot-Funtions
 client.connect();
 
-client.on('message', (channel, context, message) => {
+//Bot-Announcments//
+setInterval(() => {
+	client.say(con.targetChannel,'Testing...1.2.4'); 
+}, 5 * 1000);
 
-	//Check-'message' = self
-	const isBot = context.username.toLowerCase() !== userName.toLowerCase();
-	if ( !isBot ) return;
+//Bot-Replies//
+//Bot-Listen-to-Twitch-chat
+client.on('message', (channel, context, message, self) => {
+	if ( self ) return; //Check-Self
 
-	//Message-Handlers
-	if(message.match(regexpCommand)){
-		const [raw, command, argument] = message.match(regexpCommand);
+	//Match-command-Type
+	if(message.match(con.regexpCommand)){
+
+		//Message-Handlers
+		const [raw, command, argument] = message.match(con.regexpCommand);
 		const { response } = com.commands[command] || {};
 	
 		if ( typeof response === 'function' ) {
@@ -33,6 +43,7 @@ client.on('message', (channel, context, message) => {
 		} else if ( typeof response === 'string' ) {
 			client.say(channel, response);
 		}	
+
 	}
 
   });
