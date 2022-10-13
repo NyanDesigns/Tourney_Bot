@@ -1,0 +1,47 @@
+{
+  "timedMessages": {
+
+    "ask": [
+      "Type in Chat and Find out what I can do.. // !ask",
+      "See all commands! // !ask"
+    ],
+    "askTime": 15,
+    "askChat": 0,
+    "askCount": 0,
+
+    "socials": [
+      "Keep updated with my work! // !discord, !insta, !tweet, !yt // https://linktr.ee/xli24",
+      "Join the community on other platforms! // !discord, !insta, !tweet, !yt // https://linktr.ee/xli24",
+      "Stalk me around on other platforms! // !discord, !insta, !tweet, !yt // https://linktr.ee/xli24"
+    ],
+    "socialsTime": 20,
+    "socialsChat": 0,
+    "socialsCount": 0,
+
+    "discord": [
+      "We have pizza on our Server! // https://discord.gg/aNu3pB3QcQ",
+      "Join the community on Discord! // https://discord.gg/aNu3pB3QcQ"
+    ],
+    "discordTime": 25,
+    "discordChat": 0,
+    "discordCount": 0,
+
+    "followMe": [
+      "If u been here more than 30 sec, u know u like it here~ Hit that follow ~!",
+      "U know me~ U love me~ Follow me~! Tap that Follow Button~!",
+      "I'm trying to reach 50 followers, If u like it here, A Follow would be much appreciated!"
+    ],
+    "followMeTime": 10,
+    "followMeChat": 0,
+    "followMeCount": 0,
+
+    "lovLurkers": [
+      "I appreciated my lurkers here! Thanks for hanging out!",
+      "Haven't forgot about u, lurkers! Hope u are having a good time here~"
+    ],
+    "lovLurkersTime": 30,
+    "lovLurkersChat": 0,
+    "lovLurkersCount": 0
+    
+  }
+}
