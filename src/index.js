@@ -38,6 +38,32 @@ client.connect();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ////Bot-Timers//
 //ask
 setInterval(() => {
@@ -82,7 +108,7 @@ setInterval(() => {
 ////Bot-Replies//
 //Bot-Listen-to-Twitch-chat
 client.on("message", (channel, userstate, message, self) => {
-	
+
 	if ( self ) return; //Check-Self
 	//Retrieve-Username
 	let userName = userstate.username
