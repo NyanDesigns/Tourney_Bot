@@ -5,6 +5,7 @@
   "main": "src",
   "scripts": {
     "start": "node .",
+    "devStart": "nodemon ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,8 +26,13 @@
   },
   "homepage": "https://github.com/NyanDesigns/Tourney_Bot#readme",
   "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
     "dotenv": "^16.0.2",
     "google-spreadsheet": "^3.3.0",
+    "googleapis": "^105.0.0",
     "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

@@ -22,6 +22,8 @@ const followMe = msg.timedMessages.followMe;
 const followMeTime = msg.timedMessages.followMeTime;
 const lovLurkers = msg.timedMessages.lovLurkers;
 const lovLurkersTime = msg.timedMessages.lovLurkersTime;
+const pp = msg.timedMessages.pp;
+const ppTime = msg.timedMessages.ppTime;
 //Lurk-Variables
 var lurkCount = 0;
 var lurkers = [];
@@ -63,5 +65,7 @@ module.exports = {
     lovLurkers, 
     lovLurkersTime,
     lurkCount,
-    lurkers
+    lurkers,
+    pp,
+    ppTime
 };

@@ -1,19 +1,24 @@
+try{
+
 ////IMOPRT////
 
 //Load-.ENV-MODULE//
 require('dotenv').config();
 
+///Files
 //Import-"commands.js"//
 const com = require("./commands.js");
 //Import-"constants.js"//
 const con = require("./constants.js");
-//Import-"message.json"
+//Import-"messages.json"
 const msg = require("./messages.json");
 
+///API
 //Import-Twitch.api(tmi.js)//
 const tmi = require('tmi.js');
 const { channel } = require('tmi.js/lib/utils');
-
+//Import-GoogleSheets.api//
+const {google} = require('googleapis');
 
 ////TWITCH-FUNCTIONS////
 
@@ -64,6 +69,12 @@ setInterval(() => {
 		con.targetChannel, 
 		con.lovLurkers[Math.floor(Math.random() * con.lovLurkers.length)]); 
 }, con.lovLurkersTime * 60 * 1000)
+//pp
+setInterval(() => {
+	client.say(
+		con.targetChannel, 
+		con.pp[Math.floor(Math.random() * con.pp.length)]); 
+}, con.ppTime * 60 * 1000)
 
 
 
@@ -92,34 +103,37 @@ client.on('chat', (channel, userstate, message, self) => {
 	//Match-command-Type
 	if(message.match(con.regexpCommand)){
 
-	//!lurk
-	if (message.toLocaleLowerCase() === '!lurk') {
-		//Already-Lurker
-		if (con.lurkers.includes(userName)) {
-			client.say(channel, `${userName} you are already lurking ya dingdong!`);
-		} else {
-		//New-Lurker
-			client.say(channel, `${userName} is now lurking!`);
-			con.lurkers.push(`${userstate.username}`);
-			con.lurkCount = con.lurkers.length; 
+		//!lurk
+		if (message.toLocaleLowerCase() === '!lurk') {
+			//Already-Lurker
+			if (con.lurkers.includes(userName)) {
+				client.say(channel, `${userName} you are already lurking ya dingdong!`);
+			} else {
+			//New-Lurker
+				client.say(channel, `${userName} is now lurking!`);
+				con.lurkers.push(`${userstate.username}`);
+				con.lurkCount = con.lurkers.length; 
+			}
 		}
+
+		//!lurkers
+		if (message.toLocaleLowerCase() === '!lurkers') {
+			client.say(channel, `${con.lurkCount} people are currently lurking`);
+		}
+
+
+		////Reply-Message-Handlers
+		const [raw, command, argument] = message.match(con.regexpCommand);
+		const { response } = com.commands[command] || {};
+
+		if ( typeof response === 'function' ) {
+			client.say(channel, response(argument));
+		} else if ( typeof response === 'string' ) {
+			client.say(channel, response);
+		}	
+
 	}
-
-	//!lurkers
-	if (message.toLocaleLowerCase() === '!lurkers') {
-		client.say(channel, `${con.lurkCount} people are currently lurking`);
-	}
-
-
-	////Reply-Message-Handlers
-	const [raw, command, argument] = message.match(con.regexpCommand);
-	const { response } = com.commands[command] || {};
-
-	if ( typeof response === 'function' ) {
-		client.say(channel, response(argument));
-	} else if ( typeof response === 'string' ) {
-		client.say(channel, response);
-	}	
-	}
-
   });
+
+//Catch-&-Log-Error
+} catch(e) {console.error(e);};

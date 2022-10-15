@@ -48,7 +48,11 @@ const commands = {
 	},
 	//!kick
 	kick: {
-		response: (argument) => `Oof! ${argument} was kicked in the nuts!`
+		response: (argument) => `Oof! @${argument} was kicked in *inclusive* the nuts!`
+	},
+	//!pp
+	pp: {
+		response: 'Congratz! you has gained 0.0001 mm of pp!'
 	}
 };
 
