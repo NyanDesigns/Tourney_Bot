@@ -81,48 +81,57 @@ setInterval(() => {
 
 ////Bot-Replies//
 //Bot-Listen-to-Twitch-chat
-client.on('chat', (channel, userstate, message, self) => {
+client.on("message", (channel, userstate, message, self) => {
+	
 	if ( self ) return; //Check-Self
 	//Retrieve-Username
 	let userName = userstate.username
 
+
 	////Event-Handler
-	//Welcome-back!
-	if (con.lurkers.includes(userName)){
-		//personalized-welcome-message
-		client.say(channel, `Welcome back ${userName}! Hope u enjoyed ur time Lurking~`);
-		//find-index-of-lurker
-		const indexOfLurker = con.lurkers.findIndex(object => {
-				return object.id === userName;
-			});
-		//remove-lurker-from-list
-		con.lurkers.splice(indexOfLurker, 1);
+	//!lurk/ Welcome-back
+		if (con.lurkers.includes(userName)){
+			//personalized-welcome-message
+			client.say(channel, `Welcome back ${userName}! Hope u enjoyed ur time Lurking~`);
+			//find-index-of-lurker
+			const indexOfLurker = con.lurkers.findIndex(object => {
+					return object.id === userName;
+				});
+			//remove-lurker-from-list
+			con.lurkers.splice(indexOfLurker, 1);
+			console.log(indexOfLurker);
+			console.log(con.lurkers);
+		}
+	//!lurk
+	if (message.toLocaleLowerCase() === '!lurk') {
+		if (con.lurkers.includes(userName)) {
+			//Already-Lurker
+		} else {
+		//New-Lurker
+			client.say(channel, `${userName} is now lurking!`);
+			con.lurkers.push(`${userstate.username}`);
+			con.lurkCount = con.lurkers.length; 
+		}
+	}
+	
+	//!lurkers
+	if (message.toLocaleLowerCase() === '!lurkers') {
+		client.say(channel, `${con.lurkers.length} people are currently lurking`);
+		console.log(con.lurkers);
 	}
 
 
-	//Match-command-Type
+	////Command-Handler
 	if(message.match(con.regexpCommand)){
 
-		//!lurk
-		if (message.toLocaleLowerCase() === '!lurk') {
-			//Already-Lurker
-			if (con.lurkers.includes(userName)) {
-				client.say(channel, `${userName} you are already lurking ya dingdong!`);
-			} else {
-			//New-Lurker
-				client.say(channel, `${userName} is now lurking!`);
-				con.lurkers.push(`${userstate.username}`);
-				con.lurkCount = con.lurkers.length; 
-			}
-		}
+		//!pp
+		if (message.toLocaleLowerCase() === '!pp') {
+			//do something
 
-		//!lurkers
-		if (message.toLocaleLowerCase() === '!lurkers') {
-			client.say(channel, `${con.lurkCount} people are currently lurking`);
 		}
 
 
-		////Reply-Message-Handlers
+		//!socials/
 		const [raw, command, argument] = message.match(con.regexpCommand);
 		const { response } = com.commands[command] || {};
 
