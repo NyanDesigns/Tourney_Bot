@@ -41,19 +41,6 @@ const commands = {
 	yt : {
 		response: 'https://www.youtube.com/channel/UCGJwaBY0KRCqT-p_sdMmlwg'
 	},
-
-	//!kickall
-	kickall : {
-		response: 'Fuck it! Kick all!'
-	},
-	//!kick
-	kick: {
-		response: (argument) => `Oof! @${argument} was kicked in *inclusive* the nuts!`
-	},
-	//!pp
-	pp: {
-		response: 'Congratz! you has gained 0.0001 mm of pp!'
-	}
 };
 
 module.exports = {adCommands, commands};
