@@ -31,5 +31,4 @@ const commands = {
 	},
 };
 
-
-module.exports = {adCommands, commands};
+module.exports = {commands};
