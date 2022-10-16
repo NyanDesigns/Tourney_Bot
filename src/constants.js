@@ -1,16 +1,51 @@
 ////IMPORT////
 //Import-"message.json"
 const msg = require("./messages.json");
+//Import-"gsKeys.json"
+const gsKeys = require("./gsKeys.json");
+
 
 //Rgular-Expression//
 //More info on reGex/ regExp - https://regexr.com
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
 
+
+//Google-Sheets-Variables//
+//Import-GoogleSheets.api//
+const {google} = require('googleapis');
+//gsClient
+const gsClient = new google.auth.JWT(
+	gsKeys.client_email, 
+	null, 
+	gsKeys.private_key, 
+    //scape
+	['https://www.googleapis.com/auth/spreadsheets']
+);
+//Document-Variables
+const botSheet = '14U7s1e1TqmqeGNLgW74n1xc_txBY6abLgyvJx86PGLg'
+const ppUserRange = '!pp!A1:B'
+
+
 //Twitch-Variables//
-//Bot-Variables
+//Logins
 const userName = process.env.T_USERNAME;
 const userPass = process.env.T_OAUTH_TOKEN;
 const targetChannel = process.env.T_CHANNEL;
+//Twitch-Options//
+const opts = {
+    options: { debug: true,},
+        connection: {
+        reconnect: true,
+        secure: true,
+        },
+        //Bot-Identity-Login
+        identity: {
+            username: userName,
+            password: userPass
+        },
+        //Target-Channel
+        channels: [ targetChannel ]
+        };
 //Timer-Variables
 const ask = msg.timedMessages.ask;
 const askTime = msg.timedMessages.askTime;
@@ -29,27 +64,12 @@ var lurkCount = 0;
 var lurkers = [];
 
 
-//Twitch-Options//
-const opts = {
-    options: { debug: true,},
-        connection: {
-        reconnect: true,
-        secure: true,
-        },
-    
-            //Bot-Identity-Login
-            identity: {
-                username: userName,
-                password: userPass
-            },
-            //Target-Channel
-            channels: [ targetChannel ]
-            };
-
-
 ////Export////
 module.exports = {
+    gsClient,
     regexpCommand, 
+    botSheet,
+    ppUserRange,
     userName, 
     userPass, 
     targetChannel, 

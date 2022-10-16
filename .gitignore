@@ -80,4 +80,4 @@ dist
 .tern-port
 
 #Google-Sheets-OAuth
-keys.json
+gsKeys.json
