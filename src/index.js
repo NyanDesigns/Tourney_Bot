@@ -119,7 +119,7 @@ client.on("message", (channel, userstate, message, self) => {
 	//<3/ Spread the Love!
 		if (message.includes('<3')){
 			//personalized-welcome-message
-			client.say(channel, `Spread the love! <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3`);
+			client.say(channel, `Spread the love!`);
 		}
 	//kaijus4Nezuko/ Hail de Qweeen Nezuko! 
 		if (message.includes('kaijus4Nezuko')){
