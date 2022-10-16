@@ -115,12 +115,18 @@ client.on("message", (channel, userstate, message, self) => {
 			console.log(indexOfLurker);
 			console.log(con.lurkers);
 		}
+	///Message-Events
 	//<3/ Spread the Love!
 		if (message.includes('<3')){
 			//personalized-welcome-message
 			client.say(channel, `Spread the love! <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3`);
 		}
-	
+	//kaijus4Nezuko/ Hail de Qweeen Nezuko! 
+		if (message.includes('kaijus4Nezuko')){
+			//personalized-welcome-message
+			client.say(channel, `Hail de Qweeen Nezuko! kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko`);
+		}
+
 	///Twitch-Events
 	//Thanks for tapping that button~ I promise U won't Regret~<3
 	//Thanks for the follow! Kick back and enjoy the ride!
