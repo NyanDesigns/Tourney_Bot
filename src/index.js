@@ -124,7 +124,7 @@ client.on("message", (channel, userstate, message, self) => {
 	//kaijus4Nezuko/ Hail de Qweeen Nezuko! 
 		if (message.includes('kaijus4Nezuko')){
 			//personalized-welcome-message
-			client.say(channel, `Hail de Qweeen Nezuko! kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko kaijus4Nezuko`);
+			client.say(channel, `Hail de Qween Nezuko!`);
 		}
 
 	///Twitch-Events
