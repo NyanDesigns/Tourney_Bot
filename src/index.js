@@ -30,6 +30,10 @@ function randomizeMsg(obj) {
 	let arr = Object.values(obj);
 	return arr[Math.floor(Math.random() * arr.length)];
 }
+function between(min, max, decimals) {
+	const str = (Math.random() * (max - min) + min).toFixed(decimals);
+	return parseFloat(str);
+}
 
 //Bot-Connect-to-Twitch//
 const client = new tmi.client(con.opts);
@@ -77,6 +81,12 @@ client.connect(
 			con.targetChannel, 
 			con.pp[Math.floor(Math.random() * con.pp.length)]); 
 	}, con.ppTime * 60 * 1000)
+	//wisdoms
+	setInterval(() => {
+		client.say(
+			con.targetChannel, 
+			con.wisdom[Math.floor(Math.random() * con.wisdom.length)]); 
+	}, con.wisdomTime * 60 * 1000)
 
 
 
@@ -117,6 +127,11 @@ client.on("message", (channel, userstate, message, self) => {
 		}
 	///Message-Events
 	//<3/ Spread the Love!
+		if (message.includes('❤️')){
+			//personalized-welcome-message
+			client.say(channel, `Spread the love! <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3`);
+		}
+	//<3/ Spread the Love!
 		if (message.includes('<3')){
 			//personalized-welcome-message
 			client.say(channel, `Spread the love! <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3`);
@@ -126,6 +141,8 @@ client.on("message", (channel, userstate, message, self) => {
 			//personalized-welcome-message
 			client.say(channel, `Hail de Qween Nezuko!`);
 		}
+
+
 
 	///Twitch-Events
 	//Thanks for tapping that button~ I promise U won't Regret~<3
@@ -146,12 +163,83 @@ client.on("message", (channel, userstate, message, self) => {
 			con.lurkers.push(`${userstate.username}`);
 			con.lurkCount = con.lurkers.length; 
 		}}
-	
+		
 //!lurkers
 		if (message.toLocaleLowerCase() === '!lurkers') {
 			client.say(channel, `${con.lurkers.length} people are currently lurking~`);
 			console.log(con.lurkers);
 		}
+
+		
+	
+//!viagra
+		if (message.toLocaleLowerCase() === '!viagra') {
+
+			//Authorize-Sheets
+			con.gsClient.authorize(function(e, tokens){
+				if(e){
+					console.log(e);
+					return;
+				} else {
+					console.log('Connected to Google-Sheets api.');
+					gsrun(con.gsClient);
+				}
+			});
+
+			//Connect-to-Sheets
+			async function gsrun(cl){
+				const gsapi = google.sheets({version:'v4', auth: cl });
+				//Get-Sheet-Values
+				const [, ...values] = (await gsapi.spreadsheets.values.get({ 
+					spreadsheetId: con.botSheet, 
+					range: con.ppUserRange
+				})).data.values;
+				console.log(`Existing Users, Values = ${[values] }`);
+
+				//Search-userName
+				//Filter-&-Reduce-List-into-One
+				const index = values.reduce((o, [a, ...v], i) => ((o[a] = i + 2), o), {});
+				console.log(`index[item] = ${index[userName]}`);
+
+				if (index[userName]){
+				//`${userName} already exists.`
+				console.log(`${userName} already exists.`)
+					try{
+					//Get-&-Convert-existing-PP-length
+					const existingValue = await gsapi.spreadsheets.values.get({
+						spreadsheetId: con.botSheet,
+						range: `!pp!B${index[userName]}`,
+					  }); 
+					const trueValue = existingValue.data.values;
+					console.log(`existing value = ${trueValue}`);
+					//Update-existing-PP-length
+					  const randomValue =  between(0.001, 0.069, 3);
+					console.log(`random value = ${randomValue}`);
+					  const addedValue =  Number(trueValue) + Number(randomValue);
+					const updatedValue = await gsapi.spreadsheets.values.update({
+						spreadsheetId: con.botSheet,
+						range: `!pp!B${index[userName]}`,
+						valueInputOption: "USER_ENTERED",
+						resource: { values: [[addedValue]] },
+					  });
+					//Reply-to-`${userName}
+					client.say(channel, `${userName} 💊 => 💪🍆💦 => + ${randomValue} mm~`);
+
+					} catch(e) {console.error(e);};
+				} else {
+					
+					//`${userName} does not exist.`
+					console.log(`${userName} does not exist.`)
+					const updatedValue = await gsapi.spreadsheets.values.append({
+						spreadsheetId: con.botSheet,
+						range: con.ppUserRange,
+						valueInputOption: "USER_ENTERED",
+						resource: { values: [[userName, 0.001]] },
+					  });
+					  //Reply-to-`${userName}
+					  client.say(channel, `Congrats ${userName}! U have grown a NEW 0.001 mm of *inclusive* pp today!`);
+  
+				}};}
 
 
 //!pp
@@ -204,7 +292,7 @@ client.on("message", (channel, userstate, message, self) => {
 						resource: { values: [[addedValue]] },
 					  });
 					//Reply-to-`${userName}
-					client.say(channel, `Congrats ${userName}! U have grown ur *inclusive* pp by a WHOLE 0.001 mm~`);
+					client.say(channel, `${userName} 🍆💦 => +0.001 mm~`);
 
 					} catch(e) {console.error(e);};
 				} else {
@@ -222,6 +310,7 @@ client.on("message", (channel, userstate, message, self) => {
   
 				}};}
 
+				
 //!checkpp
 		if (message.toLocaleLowerCase() === '!checkpp') {
 
@@ -276,6 +365,62 @@ client.on("message", (channel, userstate, message, self) => {
 					client.say(channel, `Sorry ${userName}, U have don't an *inclusive* pp.. Get urs today with !pp`);
 				}};}
 		
+
+//!checkppinch
+		if (message.toLocaleLowerCase() === '!checkppinch') {
+
+			//Authorize-Sheets
+			con.gsClient.authorize(function(e, tokens){
+				if(e){
+					console.log(e);
+					return;
+				} else {
+					console.log('Connected to Google-Sheets api.');
+					gsrun(con.gsClient);
+				}
+			});
+
+			//Connect-to-Sheets
+			async function gsrun(cl){
+				const gsapi = google.sheets({version:'v4', auth: cl });
+				//Get-Sheet-Values
+				const [, ...values] = (await gsapi.spreadsheets.values.get({ 
+					spreadsheetId: con.botSheet, 
+					range: con.ppUserRange
+				})).data.values;
+				console.log(`Existing Users, Values = ${[values] }`);
+
+				//Search-userName
+				//Filter-&-Reduce-List-into-One
+				const index = values.reduce((o, [a, ...v], i) => ((o[a] = i + 2), o), {});
+				console.log(`index[item] = ${index[userName]}`);
+
+				if (index[userName]){
+				//`${userName} already exists.`
+				console.log(`${userName} already exists.`)
+					try{
+					//Get-&-Convert-existing-PP-length
+					const existingValue = await gsapi.spreadsheets.values.get({
+						spreadsheetId: con.botSheet,
+						range: `!pp!B${index[userName]}`,
+					}); 
+					const trueValue = existingValue.data.values * 0.0393701;
+					const decimalValue = trueValue.toFixed(3);
+					console.log(`existing value = ${decimalValue}`);
+					//Reply-to-`${userName}
+					if (trueValue < 6){
+					client.say(channel, `sigh.. ${userName}.. U have a ${decimalValue} inch teeny-tiny-weeney~!`);
+					} else {
+					client.say(channel, `WOW ${userName}! U have a ${decimalValue} inch dong~!`);
+					}
+					} catch(e) {console.error(e);};
+				} else {
+					//`${userName} does not exist.`
+					console.log(`${userName} does not exist.`)
+					//Reply-to-`${userName}
+					client.say(channel, `Sorry ${userName}, U have don't an *inclusive* pp.. Get urs today with !pp`);
+				}};}
+				
 				
 //!socials/
 		const [raw, command, argument] = message.match(con.regexpCommand);

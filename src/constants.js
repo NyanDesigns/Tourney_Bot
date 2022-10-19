@@ -59,6 +59,8 @@ const lovLurkers = msg.timedMessages.lovLurkers;
 const lovLurkersTime = msg.timedMessages.lovLurkersTime;
 const pp = msg.timedMessages.pp;
 const ppTime = msg.timedMessages.ppTime;
+const wisdom = msg.timedMessages.pp;
+const wisdomTime = msg.timedMessages.ppTime;
 //Lurk-Variables
 var lurkCount = 0;
 var lurkers = [];
@@ -66,6 +68,8 @@ var lurkers = [];
 
 ////Export////
 module.exports = {
+    wisdom,
+    wisdomTime,
     gsClient,
     regexpCommand, 
     botSheet,

@@ -49,7 +49,15 @@
     ],
     "ppTime": 56,
     "ppChat": 0,
-    "ppCount": 0
+    "ppCount": 0,
+
+    "wisdom": [
+      "Alan Watts: No amount of anxiety makes any difference to anything that is going to happen.",
+      "hotdog012391: Man who eats crackers in bed, wakes up feeling crummy."
+    ],
+    "wisdomTime": 1,
+    "wisdomChat": 0,
+    "wisdomCount": 0
     
   }
 }
