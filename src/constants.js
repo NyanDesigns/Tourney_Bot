@@ -46,7 +46,6 @@ const opts = {
         //Target-Channel
         channels: [ targetChannel ]
         };
-
 //Timer-Variables
 const ask = msg.timedMessages.ask;
 const askTime = msg.timedMessages.askTime;
@@ -63,8 +62,9 @@ const ppTime = msg.timedMessages.ppTime;
 const wisdom = msg.timedMessages.pp;
 const wisdomTime = msg.timedMessages.ppTime;
 //Cooldown-Variables
-var active = true;
+var activePP = true;
 var ppCooldown = 1;
+var activeViagra = true;
 var viagraCooldown = 5;
 //Lurk-Variables
 var lurkCount = 0;
@@ -73,7 +73,8 @@ var lurkers = [];
 
 ////Export////
 module.exports = {
-    active,
+    activePP,
+    activeViagra,
     ppCooldown,
     viagraCooldown,
     wisdom,

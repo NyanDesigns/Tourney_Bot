@@ -3,7 +3,7 @@ const commands = {
 
 	//!ask
 	ask : {
-		response: '!lurk // !lurkers // !viagra // !pp // !checkpp // !social'
+		response: '!lurk // !lurkers // !pp // !checkpp // !viagra // !social'
 	},
 
 	//Socials
@@ -36,23 +36,30 @@ const commands = {
 	yt : {
 		response: 'www.youtube.com/channel/UCGJwaBY0KRCqT-p_sdMmlwg'
 	},
+	//!OF
+	onlyfans : {
+		response: 'onlyfans.com/xli2499'
+	},
+	of : {
+		response: 'onlyfans.com/xli2499'
+	},
 
 	//Shout-Outs
 	//!so 
 	so: {
-		response: (argument) => `Follow my dude! twitch.tv/${argument}`
+		response: (argument) => `Follow my dude! // twitch.tv/${argument}`
 	},
 	//!theTeetimes
 	peetimes : {
-		response: 'www.youtube.com/channel/UC65eMw3KQrv6V4k8dY89pnw // www.twitch.tv/theteetimes'
+		response: 'Follow my boi for the best GOLF content! // www.youtube.com/channel/UC65eMw3KQrv6V4k8dY89pnw // www.twitch.tv/theteetimes'
 	},
 	//!Stegs
 	twistedmom : {
-		response: 'www.twitch.tv/x218stegs'
+		response: 'Best Warzone Player out there! // www.twitch.tv/x218stegs'
 	},
 	//!simply
 	simply : {
-		response: 'Follow Simp-ly for Horror games on Twitch! www.twitch.tv/simplythebestttv'
+		response: 'Follow Simp-ly for Horror games on Twitch! // www.twitch.tv/simplythebestttv'
 	},
 
 };

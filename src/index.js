@@ -175,7 +175,7 @@ client.on("message", (channel, userstate, message, self) => {
 
 //!pp
 if (message.toLocaleLowerCase() === '!pp') {
-	if (con.active) {
+	if (con.activePP) {
 
 		//Authorize-Sheets
 	con.gsClient.authorize(function(e, tokens){
@@ -243,9 +243,9 @@ if (message.toLocaleLowerCase() === '!pp') {
 		}};
 
 	//Command-Cooldown
-	con.active = false;
+	con.activePP = false;
 	setTimeout(() => {
-		con.active = true;
+		con.activePP = true;
 	}, con.ppCooldown * 60 * 1000);
 	} else {
 		// Do stuff if the command is in cooldown
@@ -377,7 +377,7 @@ if (message.toLocaleLowerCase() === '!checkppinch') {
 	
 //!viagra
 if (message.toLocaleLowerCase() === '!viagra') {
-	if (con.active) {
+	if (con.activeViagra) {
 
 		//Authorize-Sheets
 		con.gsClient.authorize(function(e, tokens){
@@ -446,9 +446,9 @@ if (message.toLocaleLowerCase() === '!viagra') {
 			}};		
 
 			//Command-Cooldown
-			con.active = false;
+			con.activeViagra = false;
 			setTimeout(() => {
-				con.active = true;
+				con.activeViagra = true;
 			}, con.viagraCooldown * 60 * 1000);
 			} else {
 				// Do stuff if the command is in cooldown
