@@ -1,104 +1,78 @@
 ////IMPORT////
-//Import-"message.json"
-const msg = require("./messages.json");
+
 //Import-"gsKeys.json"
-const gsKeys = require("./gsKeys.json");
-
-
-//Rgular-Expression//
-//More info on reGex/ regExp - https://regexr.com
-const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
-
-
-//Google-Sheets-Variables//
+const gsKeys = require("./Jsons/gsKeys.json");
 //Import-GoogleSheets.api//
 const {google} = require('googleapis');
-//gsClient
-const gsClient = new google.auth.JWT(
-	gsKeys.client_email, 
-	null, 
-	gsKeys.private_key, 
-    //scape
-	['https://www.googleapis.com/auth/spreadsheets']
-);
-//Document-Variables
-const botSheet = '14U7s1e1TqmqeGNLgW74n1xc_txBY6abLgyvJx86PGLg'
-const ppUserRange = '!pp!A1:B'
 
 
-//Twitch-Variables//
-//Logins
-const userName = process.env.T_USERNAME;
-const userPass = process.env.T_OAUTH_TOKEN;
-const targetChannel = process.env.T_CHANNEL;
-//Twitch-Options//
-const opts = {
-    options: { debug: true,},
-        connection: {
-        reconnect: true,
-        secure: true,
-        },
-        //Bot-Identity-Login
-        identity: {
-            username: userName,
-            password: userPass
-        },
-        //Target-Channel
-        channels: [ targetChannel ]
-        };
-//Timer-Variables
-const ask = msg.timedMessages.ask;
-const askTime = msg.timedMessages.askTime;
-const socials = msg.timedMessages.socials;
-const socialsTime = msg.timedMessages.socialsTime;
-const discord = msg.timedMessages.discord;
-const discordTime = msg.timedMessages.discordTime;
-const followMe = msg.timedMessages.followMe;
-const followMeTime = msg.timedMessages.followMeTime;
-const lovLurkers = msg.timedMessages.lovLurkers;
-const lovLurkersTime = msg.timedMessages.lovLurkersTime;
-const pp = msg.timedMessages.pp;
-const ppTime = msg.timedMessages.ppTime;
-const wisdom = msg.timedMessages.pp;
-const wisdomTime = msg.timedMessages.ppTime;
+////EXPORT////
+
+///Google-Sheets-Variables///
+    //gsClient
+    const gsClient = new google.auth.JWT(
+        gsKeys.client_email, 
+        null, 
+        gsKeys.private_key, 
+        //scape
+        ['https://www.googleapis.com/auth/spreadsheets']
+    );
+    //Document-Variables
+    const botSheet = '14U7s1e1TqmqeGNLgW74n1xc_txBY6abLgyvJx86PGLg'
+    const ppUserRange = '!pp!A1:B'
+
+///Twitch-Variables///
+
+//Account-Variables//
+    //Logins
+    const botName = process.env.B_USERNAME;
+    const botPass = process.env.B_OAUTH_TOKEN;
+    const botChannel = process.env.B_CHANNEL;
+    const botChannelist = botChannel.split(',');
+    const adChannel = process.env.A_CHANNEL;
+    //Twitch-Options//
+    const opts = {
+        options: { debug: true,},
+            connection: {
+            reconnect: true,
+            secure: true,
+            },
+            //Bot-Identity-Login
+            identity: {
+                username: botName,
+                password: botPass
+            },
+            //Target-Channel
+            channels: botChannelist
+            };
+
 //Cooldown-Variables
-var activePP = true;
-var ppCooldown = 1;
-var activeViagra = true;
-var viagraCooldown = 5;
+    var hornyJail = [];
+    var activePP = true;
+    var ppCooldown = 1;
+    var activeViagra = true;
+    var viagraCooldown = 2;
+
 //Lurk-Variables
-var lurkCount = 0;
-var lurkers = [];
+    var lurkCount = 0;
+    var lurkers = [];
+
+//Rgular-Expression//
+    //More info on reGex/ regExp - https://regexr.com
+    const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
 
 
-////Export////
-module.exports = {
-    activePP,
-    activeViagra,
-    ppCooldown,
-    viagraCooldown,
-    wisdom,
-    wisdomTime,
-    gsClient,
-    regexpCommand, 
-    botSheet,
-    ppUserRange,
-    userName, 
-    userPass, 
-    targetChannel, 
-    opts, 
-    ask, 
-    askTime, 
-    socials, 
-    socialsTime, 
-    discord, 
-    discordTime, 
-    followMe, 
-    followMeTime, 
-    lovLurkers, 
-    lovLurkersTime,
-    lurkCount,
-    lurkers,
-    pp,
-    ppTime
+module.exports = { 
+///Google-Sheets-Variables///
+    gsClient, botSheet, ppUserRange,
+//Account-Variables//
+    botName, botPass, botChannel, botChannelist, adChannel, opts,
+//Cooldown-Variables
+    hornyJail,
+    activePP, ppCooldown,
+    activeViagra, viagraCooldown,
+//Lurk-Variables
+    lurkCount, lurkers,
+//Rgular-Expression//
+    regexpCommand 
 };

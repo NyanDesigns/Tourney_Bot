@@ -1,0 +1,57 @@
+{ "timers" : [
+  {
+    "type" : "ask",
+    "msg" : [
+      "Type in Chat and Find out what I can do.. // !ask",
+      "See all custom commands! // !ask",
+      "Find out all the Fun commands! // !ask"
+    ],
+    "time" : 13,
+    "chatCount" : 1
+  },
+  {
+    "type" : "socials",
+    "msg" : [
+      "Keep updated with my work! // !discord, !insta, !tweet, !yt // https://linktr.ee/xli24",
+      "Join the community on other platforms! // !discord, !insta, !tweet, !yt // https://linktr.ee/xli24",
+      "Stalk me around on other platforms! // !discord, !insta, !tweet, !yt // https://linktr.ee/xli24"
+    ],
+    "time" : 17},
+  {
+    "type" : "discord",
+    "msg" : [
+      "We have pizza on our Server! // https://discord.gg/aNu3pB3QcQ",
+      "Join the community on Discord! // https://discord.gg/aNu3pB3QcQ"
+      ],
+    "time" : 25},
+  {
+    "type" : "followMe",
+    "msg" : [
+      "Keep updated with my work! // !discord, !insta, !tweet, !yt // https://linktr.ee/xli24",
+      "Join the community on other platforms! // !discord, !insta, !tweet, !yt // https://linktr.ee/xli24",
+      "Stalk me around on other platforms! // !discord, !insta, !tweet, !yt // https://linktr.ee/xli24"
+      ],
+    "time" : 9},
+  {
+    "type" : "lovLurkers",
+    "msg" : [
+      "I appreciated my lurkers here! Thanks for hanging out!",
+      "Haven't forgot about u, lurkers! Hope u are having a good time here~"
+      ],
+    "time" : 32},
+  {
+    "type" : "pp",
+    "msg" :  [
+      "With great pp comes great responsibility! // !pp",
+      "Get ur *inclusive* pp today! // !pp"
+      ],
+    "time" : 46},
+  {
+    "type" : "wisdom",
+    "msg" :  [
+      "Alan Watts: No amount of anxiety makes any difference to anything that is going to happen.",
+      "hotdog012391: Man who eats crackers in bed, wakes up feeling crummy.",
+      "Alain de Botton: Beauty is a promise of happiness."
+      ],
+    "time" : 57}
+  ]}

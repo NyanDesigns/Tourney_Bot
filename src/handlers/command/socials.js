@@ -11,6 +11,9 @@ const commands = {
 	socials : {
 		response: 'linktr.ee/xli24'
 	},
+	social : {
+		response: 'linktr.ee/xli24'
+	},
 	//!discord
 	discord : {
 		response: 'discord.gg/aNu3pB3QcQ'
@@ -58,8 +61,28 @@ const commands = {
 		response: 'Best Warzone Player out there! // www.twitch.tv/x218stegs'
 	},
 	//!simply
+	notlauren : {
+		response: 'Follow (Definitely) "NOT Lauren" for Horror games on Twitch! // www.twitch.tv/simplythebestttv'
+	},
 	simply : {
 		response: 'Follow Simp-ly for Horror games on Twitch! // www.twitch.tv/simplythebestttv'
+	},
+	//!jess
+	jess : {
+		response: 'Follow Jess for Horror games and more on Twitch! // www.twitch.tv/jessicareloaded'
+	},
+	//!KoolFrog
+	frog : {
+		response: 'Follow Koolfrog on Rumble for the Late-Night Shows! // rumble.com/c/Koolfrogg'
+	},
+	froggot : {
+		response: 'Follow Koolfrog on Rumble for the Late-Night Shows! // rumble.com/c/Koolfrogg'
+	},
+	bushybrows : {
+		response: 'Follow Koolfrog on Rumble for the Late-Night Shows! // rumble.com/c/Koolfrogg'
+	},
+	bushybrow : {
+		response: 'Follow Koolfrog on Rumble for the Late-Night Shows! // rumble.com/c/Koolfrogg'
 	},
 
 };
