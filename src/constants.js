@@ -48,10 +48,9 @@ const {google} = require('googleapis');
 
 //Cooldown-Variables
     var hornyJail = [];
-    var activePP = true;
     var ppCooldown = 1;
-    var activeViagra = true;
-    var viagraCooldown = 2;
+    var viagraJail = [];
+    var viagraCooldown = 5;
 
 //Lurk-Variables
     var lurkCount = 0;
@@ -68,9 +67,8 @@ module.exports = {
 //Account-Variables//
     botName, botPass, botChannel, botChannelist, adChannel, opts,
 //Cooldown-Variables
-    hornyJail,
-    activePP, ppCooldown,
-    activeViagra, viagraCooldown,
+    hornyJail, ppCooldown,
+    viagraJail, viagraCooldown,
 //Lurk-Variables
     lurkCount, lurkers,
 //Rgular-Expression//
