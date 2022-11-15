@@ -17,8 +17,6 @@ try{
 	const reaction = require("../src/Jsons/reaction.json");
 	//Import-"message.json"
 	const time = require("../src/Jsons/time.json");
-	//Import-"gsKeys.json"
-	const gsKeys = require("./Jsons/gsKeys.json");
 ///API
 	//Import-Twitch.api(tmi.js)//
 	const tmi = require('tmi.js');
@@ -78,6 +76,44 @@ client.on("message", (channel, userstate, message, self) => {
 
 ////Command-Handler
 if(message.match(con.regexpCommand)){
+
+	//!a / !b
+	if (message.toLocaleLowerCase() === '!a') {
+		client.say(channel, "B")
+		setTimeout(() => {
+			client.say(channel, "O")
+		}, (1200));
+		setTimeout(() => {
+			client.say(channel, "0")
+		}, (2300));
+		setTimeout(() => {
+			client.say(channel, "M")
+		}, (3300));
+		setTimeout(() => {
+			client.say(channel, "E")
+		}, (4400));
+		setTimeout(() => {
+			client.say(channel, "R")
+		}, (5500));
+	}; 
+	if (message.toLocaleLowerCase() === '!b') {
+		client.say(channel, "B")
+		setTimeout(() => {
+			client.say(channel, "O")
+		}, (1200));
+		setTimeout(() => {
+			client.say(channel, "0")
+		}, (2300));
+		setTimeout(() => {
+			client.say(channel, "M")
+		}, (3300));
+		setTimeout(() => {
+			client.say(channel, "E")
+		}, (4400));
+		setTimeout(() => {
+			client.say(channel, "R")
+		}, (5500));
+	}; 
 
 	//!lurk
 	if (message.toLocaleLowerCase() === '!lurk') {

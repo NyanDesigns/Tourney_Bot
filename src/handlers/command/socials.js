@@ -84,6 +84,14 @@ const commands = {
 	bushybrow : {
 		response: 'Follow Koolfrog on Rumble for the Late-Night Shows! // rumble.com/c/Koolfrogg'
 	},
+	//Irma-Squad
+	galacticnorth   : {
+		response: 'Follow GalacticNorth for Sick Tunes! // https://www.youtube.com/channel/UCrDk8SEsiTooIRNhsYXF0EQ'
+	},	//Irma-Squad
+	gnorth   : {
+		response: 'Follow GalacticNorth for Sick Tunes! // https://www.youtube.com/channel/UCrDk8SEsiTooIRNhsYXF0EQ'
+	}
+
 
 };
 

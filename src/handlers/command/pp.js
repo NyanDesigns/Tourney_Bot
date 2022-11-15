@@ -8,7 +8,7 @@
 	//Import-GoogleSheets.api//
 	const {google} = require('googleapis');
 
-    
+////COMMANDS////
 //!pp
 exports.pp = (client, channel, userName) => {
 
@@ -282,7 +282,7 @@ exports.viagra = (client, channel, userName) => {
             const trueValue = existingValue.data.values;
             console.log(`existing value = ${trueValue}`);
             //2//Update-existing-PP-length
-            const randomValue =  fun.between(0.001, 0.100, 3);
+            const randomValue =  fun.between(0.001, 0.500, 3);
             console.log(`random value = ${randomValue}`);
             const addedValue =  Number(trueValue) + Number(randomValue);
             const updatedValue = await gsapi.spreadsheets.values.update({
