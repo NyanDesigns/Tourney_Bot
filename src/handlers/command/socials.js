@@ -52,6 +52,8 @@ const commands = {
 	so: {
 		response: (argument) => `Follow my dude! // twitch.tv/${argument}`
 	},
+
+	
 	//!theTeetimes
 	peetimes : {
 		response: 'Follow my boi for the best GOLF content! // www.youtube.com/channel/UC65eMw3KQrv6V4k8dY89pnw // www.twitch.tv/theteetimes'
@@ -87,11 +89,10 @@ const commands = {
 	//Irma-Squad
 	galacticnorth   : {
 		response: 'Follow GalacticNorth for Sick Tunes! // https://www.youtube.com/channel/UCrDk8SEsiTooIRNhsYXF0EQ'
-	},	//Irma-Squad
+	},
 	gnorth   : {
 		response: 'Follow GalacticNorth for Sick Tunes! // https://www.youtube.com/channel/UCrDk8SEsiTooIRNhsYXF0EQ'
 	}
-
 
 };
 
