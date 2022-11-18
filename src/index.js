@@ -77,25 +77,7 @@ client.on("message", (channel, userstate, message, self) => {
 ////Command-Handler
 if(message.match(con.regexpCommand)){
 
-	//!a / !b
-	if (message.toLocaleLowerCase() === '!a') {
-		client.say(channel, "B")
-		setTimeout(() => {
-			client.say(channel, "O")
-		}, (1200));
-		setTimeout(() => {
-			client.say(channel, "0")
-		}, (2300));
-		setTimeout(() => {
-			client.say(channel, "M")
-		}, (3300));
-		setTimeout(() => {
-			client.say(channel, "E")
-		}, (4400));
-		setTimeout(() => {
-			client.say(channel, "R")
-		}, (5500));
-	}; 
+	//!b
 	if (message.toLocaleLowerCase() === '!b') {
 		client.say(channel, "B")
 		setTimeout(() => {
