@@ -47,12 +47,12 @@ const commands = {
 		response: 'onlyfans.com/xli2499'
 	},
 
+
 	//Shout-Outs
 	//!so 
 	so: {
-		response: (argument) => `Follow my dude! // twitch.tv/${argument}`
+		response: (argument) => `/announce Follow my dude! // twitch.tv/${argument}`
 	},
-
 	
 	//!theTeetimes
 	peetimes : {

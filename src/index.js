@@ -17,6 +17,8 @@ try{
 	const reaction = require("../src/Jsons/reaction.json");
 	//Import-"message.json"
 	const time = require("../src/Jsons/time.json");
+	//functions
+	const { joinObj } = require('./functions');
 ///API
 	//Import-Twitch.api(tmi.js)//
 	const tmi = require('tmi.js');
@@ -34,15 +36,20 @@ try{
 
 
 ///Twitch-Timers///
-	time.timers.forEach( (timer, i) => 
+	time.timers.forEach((timer, i) => 
 		tmer.timers(client, timer.msg, timer.time, con.adChannel)
-	) 
+	);
 
 ///Twitch-Bot-Events///
 //Raided
 client.on("raided", (channel, username, viewers) => {
-		//When-Raided
-		client.say(channel, `Welcome ${username} and party of ${viewers}!~!`);
+		//When-Raided			
+		setTimeout(() => {
+			client.say(con.adChannel, `Welcome ${username} and party of ${viewers} ~!`);
+		}, (500));
+		setTimeout(() => {
+			client.say(con.adChannel, `/announce Check out our Raider's channel! // twitch.tv/${argument}`);
+		}, (1500));		
 	});
 
 
@@ -54,6 +61,27 @@ client.on("message", (channel, userstate, message, self) => {
 	const userName = userstate.username
 
 //Message-Event-Handler
+	//Twitch-Chat-[Logger.exe]
+	if (channel == joinObj("#",con.adChannel)){
+		//IF-{userName}-is-NOT-in-{daily-Chatters}
+		//console.log(`//// Current-Daily-Chatters: ${con.dailyChatters}`);
+		if(!con.dailyChatters.includes(userName)) {
+
+			//Execute-!pp
+			pp.logger(client, channel, userName);
+
+			//{daily-Chatters}-Cooldown
+			con.dailyChatters.push(userName);
+			//console.log(`//// Updated-Daily-Chatters: ${con.dailyChatters}`);
+				//Remove-User-from-{Horny-Jail}
+				setTimeout(() => {
+					con.dailyChatters = con.dailyChatters.filter(u => u !== userName);
+				}, (24 * 60 * 60 * 1000));
+
+		} 
+		//IF-{userName}-is-in-{daily-Chatters}
+		//DO-NOTHING
+	}
 	///Commannd-Event
 	//!lurk/ Welcome-back
 	if (con.lurkers.includes(userName)){
@@ -74,125 +102,175 @@ client.on("message", (channel, userstate, message, self) => {
 	};
 	} 
 
-////Command-Handler
-if(message.match(con.regexpCommand)){
+//Command-Handler
+	if(message.match(con.regexpCommand)){
 
-	//!b
-	if (message.toLocaleLowerCase() === '!b') {
-		client.say(channel, "B")
-		setTimeout(() => {
-			client.say(channel, "O")
-		}, (1200));
-		setTimeout(() => {
-			client.say(channel, "0")
-		}, (2300));
-		setTimeout(() => {
-			client.say(channel, "M")
-		}, (3300));
-		setTimeout(() => {
-			client.say(channel, "E")
-		}, (4400));
-		setTimeout(() => {
-			client.say(channel, "R")
-		}, (5500));
-	}; 
+		//!B
+		if (message === '!B' || message.toLocaleLowerCase() === '!b') {
 
-	//!lurk
-	if (message.toLocaleLowerCase() === '!lurk') {
-		if (con.lurkers.includes(userName)) {
-			//Already-Lurker
-		} else {
-			//New-Lurker
-			client.say(channel, `Hope u enjoy ur time lurking, ${userName}!`);
-			con.lurkers.push(`${userstate.username}`);
-			con.lurkCount = con.lurkers.length; 
-		}}	
-	//!lurkers
-	if (message.toLocaleLowerCase() === '!lurkers') {
-		client.say(channel, `${con.lurkers.length} people are currently lurking~`);
-		console.log(con.lurkers);
-	}
+			//IF-{userName}-is-NOT-in-{boomer-Jail}
+			console.log(`//// Current-Horny-Jail-Residents: ${con.boomerJail}`);
+			if(!con.boomerJail.includes(userName)) {
 
-	//!pp
-	if (message.toLocaleLowerCase() === '!pp') {
-
-		//IF-{userName}-is-NOT-in-{Horny-Jail}
-		console.log(`//// Current-Horny-Jail-Residents: ${con.hornyJail}`);
-		if(!con.hornyJail.includes(userName)) {
-
-			//Execute-!pp
-			pp.pp(client, channel, userName);
-
-			//{Horny-Jail}-Cooldown
-			con.hornyJail.push(userName);
-			console.log(`//// Updated-Horny-Jail-Residents: ${con.hornyJail}`);
-				//Remove-User-from-{Horny-Jail}
+				//Execute-BOOMER			
+				client.say(channel, " 👶 0")
 				setTimeout(() => {
-					con.hornyJail = con.hornyJail.filter(u => u !== userName);
-				}, (con.ppCooldown * 60 * 1000));
+					client.say(channel, " 🧔 O")
+				}, (1200));
+				setTimeout(() => {
+					client.say(channel, " 👨‍🦳 M")
+				}, (2300));
+				setTimeout(() => {
+					client.say(channel, " 🧓 E")
+				}, (3300));
+				setTimeout(() => {
+					client.say(channel, " 👴 R")
+				}, (4400));
 
-		} 
-		//IF-{userName}-is-in-{Horny-Jail}
-		else {
-			client.say(channel, `${userName} bonk! => Horny-Jail => ${con.ppCooldown}-min!`)
+				//{boomer-Jail}-Cooldown
+				con.boomerJail.push(userName);
+				console.log(`//// Updated-Horny-Jail-Residents: ${con.boomerJail}`);
+					//Remove-User-from-{boomer-Jail}
+					setTimeout(() => {
+						con.boomerJail = con.boomerJail.filter(u => u !== userName);
+					}, (con.boomerCooldown * 60 * 1000));
+
+			} 
+			//IF-{userName}-is-in-{Horny-Jail}
+			else {
+				//Do Nothing
+			}
+
+		}; 
+
+		//!chat
+		if (message.toLocaleLowerCase() === '!chat') {
+			var chatterList = [];
+			con.dailyChatters.forEach((chatter, i) => 
+				chatterList.push(joinObj(" ",joinObj(chatter," 💖 ")))
+			);
+			console.log(chatterList);
+			client.say(channel, `/announce Thank U~${chatterList}`);
+		}; 
+
+		//!lurk
+		if (message.toLocaleLowerCase() === '!lurk') {
+			if (con.lurkers.includes(userName)) {
+				//Already-Lurker
+			} else {
+				//New-Lurker
+				client.say(channel, `Hope u enjoy ur time lurking, ${userName}!`);
+				con.lurkers.push(`${userstate.username}`);
+				con.lurkCount = con.lurkers.length; 
+			}}	
+		//!lurkers
+		if (message.toLocaleLowerCase() === '!lurkers') {
+			client.say(channel, `${con.lurkers.length} people are currently lurking~`);
+			console.log(con.lurkers);
 		}
 
-	}
-	//!checkpp
-	if (message.toLocaleLowerCase() === '!checkpp') {
+		//!pp
+		if (message.toLocaleLowerCase() === '!pp') {
 
-		pp.checkpp(client, channel, userName)
+			//IF-{userName}-is-NOT-in-{Horny-Jail}
+			console.log(`//// Current-Horny-Jail-Residents: ${con.hornyJail}`);
+			if(!con.hornyJail.includes(userName)) {
 
-	}
-	//!checkppin
-	if (message.toLocaleLowerCase() === '!checkppin') {
+				//Execute-!pp
+				pp.pp(client, channel, userName);
 
-		pp.checkppin(client, channel, userName)
+				//{Horny-Jail}-Cooldown
+				con.hornyJail.push(userName);
+				console.log(`//// Updated-Horny-Jail-Residents: ${con.hornyJail}`);
 
-	}
-	//!viagra
-	if (message.toLocaleLowerCase() === '!viagra') {
-
-		//IF-{userName}-is-NOT-in-{Horny-Jail}
-		console.log(`//// Current-Horny-Jail-Residents: ${con.viagraJail}`);
-		if(!con.viagraJail.includes(userName)) {
-
-			//Execute-!pp
-			pp.viagra(client, channel, userName);
-
-			//{Horny-Jail}-Cooldown
-			con.viagraJail.push(userName);
-			console.log(`//// Updated-Horny-Jail-Residents: ${con.viagraJail}`);
 				//Remove-User-from-{Horny-Jail}
-				setTimeout(() => {
-					con.viagraJail = con.viagraJail.filter(u => u !== userName);
-				}, (con.viagraCooldown * 60 * 1000));
+					setTimeout(() => {
+						con.hornyJail = con.hornyJail.filter(u => u !== userName);
+					}, (con.ppCooldown * 60 * 1000));
 
-		} 
-		//IF-{userName}-is-in-{Horny-Jail}
-		else { 
-			//client.timeout(channel, userName, 1, `${userName} bonk! => Horny-Jail => ${con.viagraCooldown}-min!`);
-			client.say(channel, `${userName} bonk! => Horny-Jail => ${con.viagraCooldown}-min!`)
+			} 
+
+			//IF-{userName}-is-in-{Horny-Jail}
+			else {
+
+				//If-not-Host-Delete-Msg
+				if (userstate.badges == null && channel == "#xli24"){
+					client.deletemessage(channel, userstate["id"]);
+					pp.hornyJail(client, channel, userName, con.ppCooldown);
+				} else {
+				//Execute-hornyJail
+				pp.hornyJail(client, channel, userName, con.ppCooldown);
+				};
+
+			}
+
 		}
+		//!checkpp
+		if (message.toLocaleLowerCase() === '!checkpp') {
 
+			pp.checkpp(client, channel, userName)
+
+		}
+		//!checkppin
+		if (message.toLocaleLowerCase() === '!checkppin' || message.toLocaleLowerCase() === '!checkppinch') {
+
+			pp.checkppin(client, channel, userName)
+
+		}
+		//!viagra
+		if (message.toLocaleLowerCase() === '!viagra' || message.toLocaleLowerCase() === '!v') {
+
+			//IF-{userName}-is-NOT-in-{Horny-Jail}
+			console.log(`//// Current-Horny-Jail-Residents: ${con.viagraJail}`);
+			if(!con.viagraJail.includes(userName)) {
+
+				//Execute-!viagra
+				pp.viagra(client, channel, userName);
+
+				//{Horny-Jail}-Cooldown
+				con.viagraJail.push(userName);
+				console.log(`//// Updated-Horny-Jail-Residents: ${con.viagraJail}`);
+
+				//Remove-User-from-{Horny-Jail}
+					setTimeout(() => {
+						con.viagraJail = con.viagraJail.filter(u => u !== userName);
+					}, (con.viagraCooldown * 60 * 1000));
+
+			} 
+
+			//IF-{userName}-is-in-{Horny-Jail}
+			else {
+
+				//If-not-Host-Delete-Msg
+				if (userstate.badges == null && channel == "#xli24"){
+					client.deletemessage(channel, userstate["id"]);
+					pp.hornyJail(client, channel, userName, con.viagraCooldown);
+				} else {
+				//Execute-hornyJail
+				pp.hornyJail(client, channel, userName, con.viagraCooldown);
+				};
+
+			}
+
+		}
+		
+		//!socials
+		const [raw, command, argument] = message.match(con.regexpCommand);
+		const { response } = com.commands[command] || {};
+			if ( typeof response === 'function' ) {
+				client.say(channel, response(argument));
+			} else if ( typeof response === 'string' ) {
+				client.say(channel, response);
+			}	
+
+		//!wisdom
+		if (message.toLocaleLowerCase() === '!wisdom') {
+			client.say(
+				channel, 
+				con.wisdom[Math.floor(Math.random() * con.wisdom.length)]); 
+		}
+		
 	}
-	
-	//!socials/
-	const [raw, command, argument] = message.match(con.regexpCommand);
-	const { response } = com.commands[command] || {};
-		if ( typeof response === 'function' ) {
-			client.say(channel, response(argument));
-		} else if ( typeof response === 'string' ) {
-			client.say(channel, response);
-		}	
-	//!wisdom
-	if (message.toLocaleLowerCase() === '!wisdom') {
-		client.say(
-			channel, 
-			con.wisdom[Math.floor(Math.random() * con.wisdom.length)]); 
-	}
-	
-}
 
 });	
   
