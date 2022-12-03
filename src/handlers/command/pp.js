@@ -442,7 +442,7 @@ exports.checkpp = (client, channel, userName) => {
 }
 
 //!checkppin
-exports.checkppin = (client, channel, userName, challenge) => {
+exports.checkppin = (client, channel, userName) => {
 
     //Authorize-{Sheets}
     con.gsClient.authorize(function(e, tokens){
@@ -910,7 +910,7 @@ exports.accept = (client, channel, userName, opponent) => {
 		//Filter-&-Reduce-List-into-One
 		const index = values.reduce((o, [a, ...v], i) => ((o[a] = i), o), {});
 		console.log(`User[Index] = ${index[userName]}`);
-        
+
 		//IF-{userName}-exists-in-[Data-crew] // Find-&-Excecute-[!pp]
 		if (index[userName] >= 0){
 		//console.log(`${userName} already exists.`)
