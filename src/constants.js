@@ -83,7 +83,7 @@ const { getDifference, joinObj } = require("./functions");
                 
             }
 
-        }, (5000));
+        }, (7000));
     }
 
 
@@ -108,6 +108,8 @@ const { getDifference, joinObj } = require("./functions");
     var dailyChatters = [];
     var hornyJail = [];
     var ppCooldown = 1;
+    var fighthornyJail = [];
+    var ppfightCooldown = 30;
     var viagraJail = [];
     var viagraCooldown = 5;
     var boomerJail = [];
@@ -116,6 +118,10 @@ const { getDifference, joinObj } = require("./functions");
 //Lurk-Variables
     var lurkCount = 0;
     var lurkers = [];
+
+//PP-Fight-variables
+    var fightChallengersList = [];
+    var fightOpponentList = [];
 
 //Rgular-Expression//
     //More info on reGex/ regExp - https://regexr.com
@@ -131,10 +137,13 @@ module.exports = {
 //Cooldown-Variables
     dailyChatters,
     hornyJail, ppCooldown,
+    fighthornyJail,ppfightCooldown,
     viagraJail, viagraCooldown,
     boomerJail,boomerCooldown,
 //Lurk-Variables
     lurkCount, lurkers,
+//PP-Fight-variables
+    fightChallengersList, fightOpponentList,
 //Rgular-Expression//
     regexpCommand 
 };

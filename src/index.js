@@ -43,13 +43,19 @@ try{
 ///Twitch-Bot-Events///
 //Raided
 client.on("raided", (channel, username, viewers) => {
-		//When-Raided			
+		//When-Raided / SO			
 		setTimeout(() => {
 			client.say(con.adChannel, `Welcome ${username} and party of ${viewers} ~!`);
 		}, (500));
-		setTimeout(() => {
-			client.say(con.adChannel, `/announce Check out our Raider's channel! // twitch.tv/${argument}`);
-		}, (1500));		
+		if (channel == "#xli24"){
+			setTimeout(() => {
+				client.say(con.adChannel, `/announce Check out our Raider's channel! // twitch.tv/${username}`);
+			}, (1500));
+		} else {
+			setTimeout(() => {
+				client.say(con.adChannel, `Check out our Raider's channel! // twitch.tv/${username}`);
+			}, (1500));
+		}		
 	});
 
 
@@ -82,6 +88,7 @@ client.on("message", (channel, userstate, message, self) => {
 		//IF-{userName}-is-in-{daily-Chatters}
 		//DO-NOTHING
 	}
+
 	///Commannd-Event
 	//!lurk/ Welcome-back
 	if (con.lurkers.includes(userName)){
@@ -104,9 +111,11 @@ client.on("message", (channel, userstate, message, self) => {
 
 //Command-Handler
 	if(message.match(con.regexpCommand)){
+		
+		const [raw, command, argument] = message.match(con.regexpCommand);
 
 		//!B
-		if (message === '!B' || message.toLocaleLowerCase() === '!b') {
+		if (command === 'B' || command.toLocaleLowerCase() === 'b') {
 
 			//IF-{userName}-is-NOT-in-{boomer-Jail}
 			console.log(`//// Current-Horny-Jail-Residents: ${con.boomerJail}`);
@@ -122,10 +131,10 @@ client.on("message", (channel, userstate, message, self) => {
 				}, (2300));
 				setTimeout(() => {
 					client.say(channel, " 🧓 E")
-				}, (3300));
+				}, (3400));
 				setTimeout(() => {
 					client.say(channel, " 👴 R")
-				}, (4400));
+				}, (4500));
 
 				//{boomer-Jail}-Cooldown
 				con.boomerJail.push(userName);
@@ -144,7 +153,7 @@ client.on("message", (channel, userstate, message, self) => {
 		}; 
 
 		//!chat
-		if (message.toLocaleLowerCase() === '!chat') {
+		if (command.toLocaleLowerCase() === 'chat') {
 			var chatterList = [];
 			con.dailyChatters.forEach((chatter, i) => 
 				chatterList.push(joinObj(" ",joinObj(chatter," 💖 ")))
@@ -154,7 +163,7 @@ client.on("message", (channel, userstate, message, self) => {
 		}; 
 
 		//!lurk
-		if (message.toLocaleLowerCase() === '!lurk') {
+		if (command.toLocaleLowerCase() === 'lurk') {
 			if (con.lurkers.includes(userName)) {
 				//Already-Lurker
 			} else {
@@ -162,15 +171,15 @@ client.on("message", (channel, userstate, message, self) => {
 				client.say(channel, `Hope u enjoy ur time lurking, ${userName}!`);
 				con.lurkers.push(`${userstate.username}`);
 				con.lurkCount = con.lurkers.length; 
-			}}	
+			}}
 		//!lurkers
-		if (message.toLocaleLowerCase() === '!lurkers') {
+		if (command.toLocaleLowerCase() === 'lurkers') {
 			client.say(channel, `${con.lurkers.length} people are currently lurking~`);
 			console.log(con.lurkers);
 		}
 
 		//!pp
-		if (message.toLocaleLowerCase() === '!pp') {
+		if (command.toLocaleLowerCase() === 'pp') {
 
 			//IF-{userName}-is-NOT-in-{Horny-Jail}
 			console.log(`//// Current-Horny-Jail-Residents: ${con.hornyJail}`);
@@ -205,20 +214,101 @@ client.on("message", (channel, userstate, message, self) => {
 			}
 
 		}
+		//!ppfight
+		if (command.toLocaleLowerCase() === 'ppfight' || command.toLocaleLowerCase() === 'cockfight' || command.toLocaleLowerCase() === 'swordfight') {
+
+			//IF-{userName}-is-NOT-in-{Horny-Jail}
+			console.log(`//// Current-Horny-Jail-Residents: ${con.fighthornyJail}`);
+			if(!con.fighthornyJail.includes(userName)) {
+
+				//{Horny-Jail}-Cooldown
+				con.fighthornyJail.push(userName);
+				console.log(`//// Updated-Horny-Jail-Residents: ${con.fighthornyJail}`);
+				//Challenger / Opponent Listing
+				con.fightChallengersList.push(userName);
+				con.fightOpponentList.push(argument.toLocaleLowerCase());
+				console.log(`//// Updated-Challengers-List: ${con.fightChallengersList}`);
+				console.log(`//// Updated-Opponents-List: ${con.fightOpponentList}`);
+
+				//Execute-!ppfight
+				pp.ppfight(client, channel, userName, argument);
+
+				//{Horny-Jail}-Cooldown
+				con.fighthornyJail.push(userName);
+				console.log(`//// Updated-Horny-Jail-Residents: ${con.fighthornyJail}`);
+
+				//Remove-User-after-Cooldown
+				setTimeout(() => {
+					con.fighthornyJail = con.fighthornyJail.filter(u => u !== userName);
+				}, (con.ppfightCooldown * 60 * 1000));
+				setTimeout(() => {				
+					//Remove-{opponent}-from-[OpponentList]
+					let indx = con.fightOpponentList.findIndex(x => x === `${userName}`);
+					con.fightChallengersList.splice(indx, 1);
+					con.fightOpponentList.splice(indx, 1);
+					console.log(`//// Updated-Challengers-List: ${con.fightChallengersList}`);
+					console.log(`//// Updated-Opponents-List: ${con.fightOpponentList}`);				
+				}, (1 * 60 * 1000));
+
+			} 
+
+			//IF-{userName}-is-in-{Horny-Jail}
+			else {
+
+				//If-not-Host-Delete-Msg
+				if (userstate.badges == null && channel == "#xli24"){
+					client.deletemessage(channel, userstate["id"]);
+					pp.hornyJail(client, channel, userName, con.ppfightCooldown);
+				} else {
+				//Execute-hornyJail
+					pp.hornyJail(client, channel, userName, con.ppfightCooldown);
+				};
+
+			}
+
+		}
+		//!accept // !ppfight
+		if (command.toLocaleLowerCase() === 'accept') {
+
+			//IF-{opponent}-is-in-[OpponentList]
+			console.log(`//// Current-Opponents: ${con.fightOpponentList}`);
+			console.log(userName);
+			if(con.fightOpponentList.includes(userName)) {
+
+				//Execute-!ppFight.exe
+				let indx = con.fightOpponentList.findIndex(x => x === `${userName}`);
+				pp.accept(client, channel, con.fightChallengersList[indx], userName);
+
+				//Remove-{opponent}-from-[OpponentList]
+				con.fightChallengersList.splice(indx, 1);
+				con.fightOpponentList.splice(indx, 1);
+				console.log(`//// Updated-Challengers-List: ${con.fightChallengersList}`);
+				console.log(`//// Updated-Opponents-List: ${con.fightOpponentList}`);
+
+			} 
+
+			//IF-{opponent}-is-NOT-in-[OpponentList]
+			else {
+
+				//DO NOTHING
+
+			}
+
+		}
 		//!checkpp
-		if (message.toLocaleLowerCase() === '!checkpp') {
+		if (command.toLocaleLowerCase() === 'checkpp') {
 
 			pp.checkpp(client, channel, userName)
 
 		}
 		//!checkppin
-		if (message.toLocaleLowerCase() === '!checkppin' || message.toLocaleLowerCase() === '!checkppinch') {
+		if (command.toLocaleLowerCase() === 'checkppin' || message.toLocaleLowerCase() === '!checkppinch') {
 
 			pp.checkppin(client, channel, userName)
 
 		}
 		//!viagra
-		if (message.toLocaleLowerCase() === '!viagra' || message.toLocaleLowerCase() === '!v') {
+		if (command.toLocaleLowerCase() === 'viagra' || message.toLocaleLowerCase() === '!v') {
 
 			//IF-{userName}-is-NOT-in-{Horny-Jail}
 			console.log(`//// Current-Horny-Jail-Residents: ${con.viagraJail}`);
@@ -255,16 +345,15 @@ client.on("message", (channel, userstate, message, self) => {
 		}
 		
 		//!socials
-		const [raw, command, argument] = message.match(con.regexpCommand);
 		const { response } = com.commands[command] || {};
 			if ( typeof response === 'function' ) {
 				client.say(channel, response(argument));
 			} else if ( typeof response === 'string' ) {
 				client.say(channel, response);
-			}	
+			}
 
 		//!wisdom
-		if (message.toLocaleLowerCase() === '!wisdom') {
+		if (command.toLocaleLowerCase() === 'wisdom') {
 			client.say(
 				channel, 
 				con.wisdom[Math.floor(Math.random() * con.wisdom.length)]); 

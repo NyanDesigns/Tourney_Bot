@@ -3,7 +3,7 @@ const commands = {
 
 	//!ask
 	ask : {
-		response: '!lurk // !lurkers // !pp // !checkpp // !viagra // !social'
+		response: '!chat // !B // !lurk // !lurkers // !pp // !checkpp // !viagra // !social'
 	},
 
 	//Socials
