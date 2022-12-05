@@ -1006,10 +1006,10 @@ exports.accept = (client, channel, userName, opponent) => {
                                             resource: { values: [[addedValue]] },
                                         });                                
                                     //5.1//Reply
-                                        client.say(channel, `💪${trueCBadge}😈 => ☠️${trueOBadge}⚰️`)
+                                        client.say(channel, `💪${trueCBadge}😈 => ☠️${trueOBadge}✂️`)
                                         setTimeout(() => {
-                                            client.say(channel, `F.. ☠️${opponent} got ✂️ their ${trueOBadge} => -${OrandomValue} mm`)
-                                        }, (800));
+                                            client.say(channel, `F.. ${opponent} got their ${trueOBadge} => ✂️ => ⛔${addedValue} mm`)
+                                        }, (1000));
                                 }
                                 //LOSE
                                 if (CrandomValue < OrandomValue){
@@ -1022,10 +1022,351 @@ exports.accept = (client, channel, userName, opponent) => {
                                             resource: { values: [[addedValue]] },
                                         });                              
                                     //5.2//Reply
-                                        client.say(channel, `💪${trueOBadge}😈 => ☠️${trueCBadge}⚰️`)
+                                        client.say(channel, `💪${trueOBadge}😈 => ☠️${trueCBadge}✂️`)
                                         setTimeout(() => {
-                                            client.say(channel, `F.. ☠️${userName} got ✂️ their ${trueCBadge} => -${CrandomValue} mm`)
-                                        }, (800));
+                                            client.say(channel, `F.. ${userName} got their ${trueCBadge} => ✂️ => ⛔${addedValue} mm`)
+                                        }, (1000));
+                                }
+
+                            } catch(e) {console.error(e);};
+
+                        }
+
+                        //IF-{userName}-does-not-exist // a NEW 0.001 mm
+                        else {	
+
+                            console.log(`${userName} pp not found`)
+                            //1//Reply-to-{userName}
+                            client.say(channel, `Gotta bring a PP to a PPfight ${userName} => !checkpp`);
+                        
+                        };
+                    };
+
+                } 
+                //3//IF-"FALSE"-Err-Reply
+                else {
+
+                    client.say(channel, `Gotta bring a PP to a PPfight ${userName} => !checkpp`);
+                
+                };
+
+			} catch(e) {console.error(e);};
+		}
+
+		//IF-{userName}-does-not-exist // Do-Nothing
+		else return;
+		
+	}
+        
+}
+
+//!vfight
+exports.vfight = (client, channel, userName, opponent) => {
+
+    //Authorize-{Sheets}
+	con.gsClient.authorize(function(e, tokens){
+		if(e){
+			console.log(e);
+			return;
+		} else {
+			//console.log('Connected to Google-Sheets api.');
+			gsrun(con.gsClient);
+		}
+	});
+
+	//Connect-to-{Sheets}
+	async function gsrun(cl){
+
+		const gsapi = google.sheets({version:'v4', auth: cl });
+		//Get-{Sheet-Values}-in-[Data-crew]
+		const [,...values] = (await gsapi.spreadsheets.values.get({ 
+			spreadsheetId: con.botSheet, 
+			range: con.twitchIdRange
+		})).data.values;
+
+		//Search-{userName}-in-{Sheet-Values}-in-[Data-crew]
+		//Filter-&-Reduce-List-into-One
+		const index = values.reduce((o, [a, ...v], i) => ((o[a] = i), o), {});
+		//console.log(`User[Index] = ${index[userName]}`);
+
+		//IF-{userName}-exists-in-[Data-crew] // Find-&-Excecute-[!pp]
+		if (index[userName] >= 0){
+		//console.log(`${userName} already exists.`)
+			///!pp
+			try{
+
+                //1//Get-existing-[!ppValue]-in-[Data-crew]
+                const adjustedIndex = index[userName] + 4;
+                const existingValue = await gsapi.spreadsheets.values.get({
+                    spreadsheetId: con.botSheet,
+                    range: `Data-crew!G${adjustedIndex}`,
+                });
+                const trueValue = existingValue.data.values.flat();
+                console.log(trueValue);
+                //2//IF-"TRUE"-run-!vfight
+                if (trueValue == "TRUE"){
+
+                    //Authorize-{Sheets}
+                    con.gsClient.authorize(function(e, tokens){
+                        if(e){
+                            console.log(e);
+                            return;
+                        } else {
+                            //console.log('Connected to Google-Sheets api.');
+                            gsrun(con.gsClient);
+                        }
+                    });
+
+                    //Connect-to-{Sheets}-[Data-!pp]
+                    async function gsrun(cl){
+
+                        const gsapi = google.sheets({version:'v4', auth: cl });
+
+                        //Get-{Sheet-Values}-in-[Data-!pp]
+                        const [, ...values] = (await gsapi.spreadsheets.values.get({ 
+                            spreadsheetId: con.botSheet, 
+                            range: con.ppUserRange
+                        })).data.values;
+
+                        //Search-{userName}-in-[Data-!pp]
+                        //Filter-&-Reduce-List-into-One
+                        const index = values.reduce((o, [a, ...v], i) => ((o[a] = i), o), {});
+                        
+                        const oppoLC = `${opponent}`.toLocaleLowerCase();
+
+                        //IF-{userName}-already-exists // RUN-PPFIGHT
+                        if (index[userName] >= 0 && index[oppoLC] >= 0){
+
+                            console.log(`${userName} got PP`)
+                            ///Get-&-update-existing-PP-length
+                            try{
+
+                            //1//Adjust-Index
+                                const adjustedCIndex = index[userName] + 3;
+                                const adjustedOIndex = index[oppoLC] + 3;
+                            //2//Get-existing-[VBadge]-C
+                                const existingPPBadge = await gsapi.spreadsheets.values.get({
+                                    spreadsheetId: con.botSheet,
+                                    range: `Data-!pp!F${adjustedCIndex}`,
+                                });
+                                const trueCBadge = existingPPBadge.data.values;
+                            //3//Get-existing-[VBadge]-O
+                                const existingViagraBadge = await gsapi.spreadsheets.values.get({
+                                    spreadsheetId: con.botSheet,
+                                    range: `Data-!pp!F${adjustedOIndex}`,
+                                });
+                                const trueOBadge = existingViagraBadge.data.values;
+                            //4//Reply-to-{userName}
+                            	//If-not-Host-Delete-Msg
+                                if (channel == "#xli24"){
+                                    client.say(channel, `/announce ${userName} initated 🔥${trueCBadge}-vs-${trueOBadge}🔥 ${opponent} got ⏱️-1-min  to "!accept" the 🔥⚔️challenge⚔️🔥 in chat 👇`)
+                                    } else {
+                                //Execute-hornyJail
+				                client.say(channel, `${userName} initated 🔥${trueCBadge}-vs-${trueOBadge}🔥 ${opponent} got ⏱️-1-min  to "!accept" the 🔥⚔️challenge⚔️🔥 in chat 👇`)
+                                };
+
+                            } catch(e) {console.error(e);};
+
+                        }
+
+                        //IF-{opponent}-does-not-exist // 
+                        else if (!index[oppoLC] >= 0) {	
+
+                            console.log(`${opponent} pp not found`)
+                            //1//Reply-to-{userName}
+                            client.say(channel, `⛔ ERROR-NOMMIE ⛔ Cannot initate fight with Nommie ${opponent}`);
+                        
+                        };
+                    };
+
+                } 
+                //3//IF-"FALSE"-Err-Reply
+                else {
+
+                    client.say(channel, `Gotta bring a PP to a PPfight ${userName} => !checkpp`);
+                
+                };
+
+			} catch(e) {console.error(e);};
+		}
+
+		//IF-{userName}-does-not-exist // Do-Nothing
+		else return;
+		
+	}
+        
+}
+
+//!accept // !vfight
+exports.vaccept = (client, channel, userName, opponent) => {
+
+    //Authorize-{Sheets}
+	con.gsClient.authorize(function(e, tokens){
+		if(e){
+			console.log(e);
+			return;
+		} else {
+			//console.log('Connected to Google-Sheets api.');
+			gsrun(con.gsClient);
+		}
+	});
+
+	//Connect-to-{Sheets}
+	async function gsrun(cl){
+
+		const gsapi = google.sheets({version:'v4', auth: cl });
+		//Get-{Sheet-Values}-in-[Data-crew]
+		const [,...values] = (await gsapi.spreadsheets.values.get({ 
+			spreadsheetId: con.botSheet, 
+			range: con.twitchIdRange
+		})).data.values;
+
+		//Search-{userName}-in-{Sheet-Values}-in-[Data-crew]
+		//Filter-&-Reduce-List-into-One
+		const index = values.reduce((o, [a, ...v], i) => ((o[a] = i), o), {});
+		console.log(`User[Index] = ${index[userName]}`);
+
+		//IF-{userName}-exists-in-[Data-crew] // Find-&-Excecute-[!pp]
+		if (index[userName] >= 0){
+		//console.log(`${userName} already exists.`)
+			///!accept // PPfight.exe
+			try{
+
+                //1//Get-existing-[!ppValue]-in-[Data-crew]
+                const adjustedIndex = index[userName] + 4;
+                const existingValue = await gsapi.spreadsheets.values.get({
+                    spreadsheetId: con.botSheet,
+                    range: `Data-crew!G${adjustedIndex}`,
+                });
+                const trueValue = existingValue.data.values.flat();
+                console.log(trueValue);
+                //2//IF-"TRUE"-run-!ppfight
+                if (trueValue == "TRUE"){
+
+                    //Authorize-{Sheets}
+                    con.gsClient.authorize(function(e, tokens){
+                        if(e){
+                            console.log(e);
+                            return;
+                        } else {
+                            //console.log('Connected to Google-Sheets api.');
+                            gsrun(con.gsClient);
+                        }
+                    });
+
+                    //Connect-to-{Sheets}-[Data-!pp]
+                    async function gsrun(cl){
+                        const gsapi = google.sheets({version:'v4', auth: cl });
+
+                        //Get-{Sheet-Values}-in-[Data-!pp]
+                        const [, ...values] = (await gsapi.spreadsheets.values.get({ 
+                            spreadsheetId: con.botSheet, 
+                            range: con.ppUserRange
+                        })).data.values;
+
+                        //Search-{userName}-in-[Data-!pp]
+                        //Filter-&-Reduce-List-into-One
+                        const index = values.reduce((o, [a, ...v], i) => ((o[a] = i), o), {});
+                        
+                        const oppoLC = `${opponent}`.toLocaleLowerCase();
+
+                        //IF-{userName}-already-exists // RUN-PPFIGHT
+                        if (index[userName] >= 0 && index[oppoLC] >= 0){
+
+                            console.log(`${userName} got PP`)
+                            ///Get-&-update-existing-PP-length
+                            try{
+
+                                //1//Get-existing-PP-length[s]
+                                    const CadjustedPPIndex = index[userName] + 3;
+                                    const CexistingValue = await gsapi.spreadsheets.values.get({
+                                        spreadsheetId: con.botSheet,
+                                        range: `Data-!pp!C${CadjustedPPIndex}`,
+                                    });
+                                    const CtrueValue = CexistingValue.data.values;
+                                    const OadjustedPPIndex = index[oppoLC] + 3;
+                                    const OexistingValue = await gsapi.spreadsheets.values.get({
+                                        spreadsheetId: con.botSheet,
+                                        range: `Data-!pp!C${OadjustedPPIndex}`,
+                                    });
+                                    const OtrueValue = OexistingValue.data.values;
+                                //2//PP-FIGHT-ENIGINE
+                                    const CrandomValue =  fun.between(0.500, 5.000, 3);
+                                    const OrandomValue =  fun.between(0.500, 5.000, 3);
+                                    console.log(`Crandom value = ${CrandomValue}`);
+                                    console.log(`Orandom value = ${OrandomValue}`);
+                                //3//Get-existing-PP-length
+                                    const adjustedCIndex = index[userName] + 3;
+                                    const adjustedOIndex = index[oppoLC] + 3;
+                                //4//Get-existing-[ppBadge]-C
+                                    const existingPPBadge = await gsapi.spreadsheets.values.get({
+                                        spreadsheetId: con.botSheet,
+                                        range: `Data-!pp!F${adjustedCIndex}`,
+                                    });
+                                    const trueCBadge = existingPPBadge.data.values;
+                                //5//Get-existing-[ppBadge]-O
+                                    const existingViagraBadge = await gsapi.spreadsheets.values.get({
+                                        spreadsheetId: con.botSheet,
+                                        range: `Data-!pp!F${adjustedOIndex}`,
+                                    });
+                                const trueOBadge = existingViagraBadge.data.values;
+                                //WIN
+                                if (CrandomValue > OrandomValue){
+                                    //4.1//Update-existing-PP-length
+                                        var addedOValue =  Number(OtrueValue) - Number(OrandomValue);
+                                        console.log( OtrueValue );
+                                        console.log( OrandomValue );
+                                        console.log( addedOValue );
+                                        const updatedOValue = await gsapi.spreadsheets.values.update({
+                                            spreadsheetId: con.botSheet,
+                                            range: `Data-!pp!C${OadjustedPPIndex}`,
+                                            valueInputOption: "USER_ENTERED",
+                                            resource: { values: [[addedOValue]] },
+                                        });
+                                        var addedCValue =  Number(CtrueValue) + Number(CrandomValue);
+                                        console.log( CtrueValue );
+                                        console.log( CrandomValue );
+                                        console.log( addedCValue );
+                                        const updatedCValue = await gsapi.spreadsheets.values.update({
+                                            spreadsheetId: con.botSheet,
+                                            range: `Data-!pp!C${CadjustedPPIndex}`,
+                                            valueInputOption: "USER_ENTERED",
+                                            resource: { values: [[addedCValue]] },
+                                        });                                    
+                                    //5.1//Reply
+                                        client.say(channel, `💪${trueCBadge}💦 => ☠️${trueOBadge}💥`)
+                                        setTimeout(() => {
+                                            client.say(channel, `${userName} 😎gain${trueCBadge}➕${CrandomValue}   => ${opponent} 😵lost${trueOBadge}➖(${OrandomValue})`)
+                                        }, (1000));
+                                }
+                                //LOSE
+                                if (CrandomValue < OrandomValue){
+                                    //4.1//Update-existing-PP-length
+                                    var addedOValue =  Number(OtrueValue) + Number(OrandomValue);
+                                    console.log( OtrueValue );
+                                    console.log( OrandomValue );
+                                    console.log( addedOValue );
+                                    const updatedOValue = await gsapi.spreadsheets.values.update({
+                                        spreadsheetId: con.botSheet,
+                                        range: `Data-!pp!C${OadjustedPPIndex}`,
+                                        valueInputOption: "USER_ENTERED",
+                                        resource: { values: [[addedOValue]] },
+                                    });
+                                    var addedCValue =  Number(CtrueValue) - Number(CrandomValue);
+                                    console.log( CtrueValue );
+                                    console.log( CrandomValue );
+                                    console.log( addedCValue );
+                                    const updatedCValue = await gsapi.spreadsheets.values.update({
+                                        spreadsheetId: con.botSheet,
+                                        range: `Data-!pp!C${CadjustedPPIndex}`,
+                                        valueInputOption: "USER_ENTERED",
+                                        resource: { values: [[addedCValue]] },
+                                    });                                    
+                                //5.1//Reply
+                                    client.say(channel, `💪${trueOBadge}💦 => ☠️${trueCBadge}💥`)
+                                    setTimeout(() => {
+                                        client.say(channel, `${opponent} 😎gain${trueOBadge}➕${OrandomValue}   => ${userName} 😵lost${trueCBadge}➖(${CrandomValue})`)
+                                    }, (1000));
                                 }
 
                             } catch(e) {console.error(e);};

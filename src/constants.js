@@ -108,8 +108,10 @@ const { getDifference, joinObj } = require("./functions");
     var dailyChatters = [];
     var hornyJail = [];
     var ppCooldown = 1;
-    var fighthornyJail = [];
+    var ppfightJail = [];
     var ppfightCooldown = 30;
+    var viagrafightJail = [];
+    var viagrafightCooldown = 15;
     var viagraJail = [];
     var viagraCooldown = 5;
     var boomerJail = [];
@@ -119,9 +121,11 @@ const { getDifference, joinObj } = require("./functions");
     var lurkCount = 0;
     var lurkers = [];
 
-//PP-Fight-variables
-    var fightChallengersList = [];
-    var fightOpponentList = [];
+//Fight-variables
+    var ppfightChallengersList = [];
+    var ppfightOpponentList = [];
+    var vfightChallengersList = [];
+    var vfightOpponentList = [];
 
 //Rgular-Expression//
     //More info on reGex/ regExp - https://regexr.com
@@ -137,13 +141,15 @@ module.exports = {
 //Cooldown-Variables
     dailyChatters,
     hornyJail, ppCooldown,
-    fighthornyJail,ppfightCooldown,
+    ppfightJail, ppfightCooldown,
+    viagrafightJail, viagrafightCooldown,
     viagraJail, viagraCooldown,
-    boomerJail,boomerCooldown,
+    boomerJail, boomerCooldown,
 //Lurk-Variables
     lurkCount, lurkers,
-//PP-Fight-variables
-    fightChallengersList, fightOpponentList,
+//Fight-variables
+    ppfightChallengersList, ppfightOpponentList,
+    vfightChallengersList, vfightOpponentList,
 //Rgular-Expression//
     regexpCommand 
 };

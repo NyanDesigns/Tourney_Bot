@@ -215,39 +215,39 @@ client.on("message", (channel, userstate, message, self) => {
 
 		}
 		//!ppfight
-		if (command.toLocaleLowerCase() === 'ppfight' || command.toLocaleLowerCase() === 'cockfight' || command.toLocaleLowerCase() === 'swordfight') {
+		if (command.toLocaleLowerCase() === 'ppfight' || command.toLocaleLowerCase() === 'cockfight' || command.toLocaleLowerCase() === 'swordfight' || command.toLocaleLowerCase() === 'pf' || command.toLocaleLowerCase() === 'sf' && argument !== undefined) {
 
 			//IF-{userName}-is-NOT-in-{Horny-Jail}
-			console.log(`//// Current-Horny-Jail-Residents: ${con.fighthornyJail}`);
-			if(!con.fighthornyJail.includes(userName)) {
+			console.log(`//// Current-Horny-Jail-Residents: ${con.ppfightJail}`);
+			if(!con.ppfightJail.includes(userName)) {
 
 				//{Horny-Jail}-Cooldown
-				con.fighthornyJail.push(userName);
-				console.log(`//// Updated-Horny-Jail-Residents: ${con.fighthornyJail}`);
+				con.ppfightJail.push(userName);
+				console.log(`//// Updated-Horny-Jail-Residents: ${con.ppfightJail}`);
 				//Challenger / Opponent Listing
-				con.fightChallengersList.push(userName);
-				con.fightOpponentList.push(argument.toLocaleLowerCase());
-				console.log(`//// Updated-Challengers-List: ${con.fightChallengersList}`);
-				console.log(`//// Updated-Opponents-List: ${con.fightOpponentList}`);
+				con.ppfightChallengersList.push(userName);
+				con.ppfightOpponentList.push(argument.toLocaleLowerCase());
+				console.log(`//// Updated-Challengers-List: ${con.ppfightChallengersList}`);
+				console.log(`//// Updated-Opponents-List: ${con.ppfightOpponentList}`);
 
 				//Execute-!ppfight
 				pp.ppfight(client, channel, userName, argument);
 
 				//{Horny-Jail}-Cooldown
-				con.fighthornyJail.push(userName);
-				console.log(`//// Updated-Horny-Jail-Residents: ${con.fighthornyJail}`);
+				con.ppfightJail.push(userName);
+				console.log(`//// Updated-Horny-Jail-Residents: ${con.ppfightJail}`);
 
 				//Remove-User-after-Cooldown
 				setTimeout(() => {
-					con.fighthornyJail = con.fighthornyJail.filter(u => u !== userName);
+					con.ppfightJail = con.ppfightJail.filter(u => u !== userName);
 				}, (con.ppfightCooldown * 60 * 1000));
 				setTimeout(() => {				
 					//Remove-{opponent}-from-[OpponentList]
-					let indx = con.fightOpponentList.findIndex(x => x === `${userName}`);
-					con.fightChallengersList.splice(indx, 1);
-					con.fightOpponentList.splice(indx, 1);
-					console.log(`//// Updated-Challengers-List: ${con.fightChallengersList}`);
-					console.log(`//// Updated-Opponents-List: ${con.fightOpponentList}`);				
+					let indx = con.ppfightOpponentList.findIndex(x => x === `${userName}`);
+					con.ppfightChallengersList.splice(indx, 1);
+					con.ppfightOpponentList.splice(indx, 1);
+					console.log(`//// Updated-Challengers-List: ${con.ppfightChallengersList}`);
+					console.log(`//// Updated-Opponents-List: ${con.ppfightOpponentList}`);				
 				}, (1 * 60 * 1000));
 
 			} 
@@ -271,19 +271,19 @@ client.on("message", (channel, userstate, message, self) => {
 		if (command.toLocaleLowerCase() === 'accept') {
 
 			//IF-{opponent}-is-in-[OpponentList]
-			console.log(`//// Current-Opponents: ${con.fightOpponentList}`);
+			console.log(`//// Current-Opponents: ${con.ppfightOpponentList}`);
 			console.log(userName);
-			if(con.fightOpponentList.includes(userName)) {
+			if(con.ppfightOpponentList.includes(userName)) {
 
 				//Execute-!ppFight.exe
-				let indx = con.fightOpponentList.findIndex(x => x === `${userName}`);
-				pp.accept(client, channel, con.fightChallengersList[indx], userName);
+				let indx = con.ppfightOpponentList.findIndex(x => x === `${userName}`);
+				pp.accept(client, channel, con.ppfightChallengersList[indx], userName);
 
 				//Remove-{opponent}-from-[OpponentList]
-				con.fightChallengersList.splice(indx, 1);
-				con.fightOpponentList.splice(indx, 1);
-				console.log(`//// Updated-Challengers-List: ${con.fightChallengersList}`);
-				console.log(`//// Updated-Opponents-List: ${con.fightOpponentList}`);
+				con.ppfightChallengersList.splice(indx, 1);
+				con.ppfightOpponentList.splice(indx, 1);
+				console.log(`//// Updated-Challengers-List: ${con.ppfightChallengersList}`);
+				console.log(`//// Updated-Opponents-List: ${con.ppfightOpponentList}`);
 
 			} 
 
@@ -295,6 +295,89 @@ client.on("message", (channel, userstate, message, self) => {
 			}
 
 		}
+
+		//!vfight
+		if (command.toLocaleLowerCase() === 'viagrafight' || command.toLocaleLowerCase() === 'vfight' || command.toLocaleLowerCase() === 'vf') {
+
+			//IF-{userName}-is-NOT-in-{Horny-Jail}
+			console.log(`//// Current-Horny-Jail-Residents: ${con.viagrafightJail}`);
+			if(!con.viagrafightJail.includes(userName)) {
+
+				//{Horny-Jail}-Cooldown
+				con.viagrafightJail.push(userName);
+				console.log(`//// Updated-Horny-Jail-Residents: ${con.viagrafightJail}`);
+				//Challenger / Opponent Listing
+				con.vfightChallengersList.push(userName);
+				con.vfightOpponentList.push(argument.toLocaleLowerCase());
+				console.log(`//// Updated-Challengers-List: ${con.vfightChallengersList}`);
+				console.log(`//// Updated-Opponents-List: ${con.vfightOpponentList}`);
+
+				//Execute-!ppfight
+				pp.vfight(client, channel, userName, argument);
+
+				//{Horny-Jail}-Cooldown
+				con.viagrafightJail.push(userName);
+				console.log(`//// Updated-Horny-Jail-Residents: ${con.viagrafightJail}`);
+
+				//Remove-User-after-Cooldown
+				setTimeout(() => {
+					con.viagrafightJail = con.viagrafightJail.filter(u => u !== userName);
+				}, (con.ppfightCooldown * 60 * 1000));
+				setTimeout(() => {				
+					//Remove-{opponent}-from-[OpponentList]
+					let indx = con.vfightOpponentList.findIndex(x => x === `${userName}`);
+					con.vfightChallengersList.splice(indx, 1);
+					con.vfightOpponentList.splice(indx, 1);
+					console.log(`//// Updated-Challengers-List: ${con.vfightChallengersList}`);
+					console.log(`//// Updated-Opponents-List: ${con.vfightOpponentList}`);				
+				}, (1 * 60 * 1000));
+
+			} 
+
+			//IF-{userName}-is-in-{Horny-Jail}
+			else {
+
+				//If-not-Host-Delete-Msg
+				if (userstate.badges == null && channel == "#xli24"){
+					client.deletemessage(channel, userstate["id"]);
+					pp.hornyJail(client, channel, userName, con.viagrafightCooldown);
+				} else {
+				//Execute-hornyJail
+					pp.hornyJail(client, channel, userName, con.viagrafightCooldown);
+				};
+
+			}
+
+		}
+		//!accept // !vfight
+		if (command.toLocaleLowerCase() === 'accept') {
+
+			//IF-{opponent}-is-in-[OpponentList]
+			console.log(`//// Current-Opponents: ${con.vfightOpponentList}`);
+			console.log(userName);
+			if(con.vfightOpponentList.includes(userName)) {
+
+				//Execute-!ppFight.exe
+				let indx = con.vfightOpponentList.findIndex(x => x === `${userName}`);
+				pp.vaccept(client, channel, con.vfightChallengersList[indx], userName);
+
+				//Remove-{opponent}-from-[OpponentList]
+				con.vfightChallengersList.splice(indx, 1);
+				con.vfightOpponentList.splice(indx, 1);
+				console.log(`//// Updated-Challengers-List: ${con.vfightChallengersList}`);
+				console.log(`//// Updated-Opponents-List: ${con.vfightOpponentList}`);
+
+			} 
+
+			//IF-{opponent}-is-NOT-in-[OpponentList]
+			else {
+
+				//DO NOTHING
+
+			}
+
+		}
+
 		//!checkpp
 		if (command.toLocaleLowerCase() === 'checkpp') {
 
