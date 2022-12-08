@@ -1,5 +1,5 @@
 {
-  "name": "tourney_bot",
+  "name": "xli_bot",
   "version": "1.0.0",
   "description": "A Twitch Live Tournament-Assist Bot, using Node.js with twitch.api and googlesheets.api.",
   "main": "src",
