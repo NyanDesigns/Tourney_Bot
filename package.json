@@ -1,7 +1,7 @@
 {
-  "name": "xli_bot",
+  "name": "tourney_bot",
   "version": "1.0.0",
-  "description": "A Twitch Live Tournament-Assist Bot, using Node.js with twitch.api and googlesheets.api.",
+  "description": "Twitch Moderation Bot",
   "main": "src",
   "scripts": {
     "start": "node .",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NyanDesigns/Tourney_Bot.git"
+    "url": "git+https://github.com/NyanDesigns/ATSWG_B0t"
   },
   "keywords": [
     "Twitch_Bot",
@@ -22,9 +22,9 @@
   "author": "Nyan-Designs",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NyanDesigns/Tourney_Bot/issues"
+    "url": "https://github.com/NyanDesigns/ATSWG_B0t/issues"
   },
-  "homepage": "https://github.com/NyanDesigns/Tourney_Bot#readme",
+  "homepage": "https://github.com/NyanDesigns/ATSWG_B0t#readme",
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.0",
     "dotenv": "^16.0.2",
