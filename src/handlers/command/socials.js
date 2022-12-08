@@ -69,6 +69,10 @@ const commands = {
 	simply : {
 		response: 'Follow Simp-ly for Horror games on Twitch! // www.twitch.tv/simplythebestttv'
 	},
+	//BMT
+	bmt : {
+		response: 'Follow BMT for some Retro n Horror games on Twitch! // www.twitch.tv/bmt_epic'
+	},
 	//!jess
 	jess : {
 		response: 'Follow Jess for Horror games and more on Twitch! // www.twitch.tv/jessicareloaded'
