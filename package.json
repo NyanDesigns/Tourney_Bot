@@ -1,5 +1,5 @@
 {
-  "name": "tourney_bot",
+  "name": "xli_bot",
   "version": "1.0.0",
   "description": "Twitch Moderation Bot",
   "main": "src",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NyanDesigns/Tourney_Bot"
+    "url": "git+https://github.com/NyanDesigns/xLi_B0t"
   },
   "keywords": [
     "Twitch_Bot",
@@ -22,9 +22,9 @@
   "author": "Nyan-Designs",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NyanDesigns/Tourney_Botissues"
+    "url": "https://github.com/NyanDesigns/xLi_B0t/issues"
   },
-  "homepage": "https://github.com/NyanDesigns/Tourney_Bot#readme",
+  "homepage": "https://github.com/NyanDesigns/xLi_B0t#readme",
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.0",
     "dotenv": "^16.0.2",
