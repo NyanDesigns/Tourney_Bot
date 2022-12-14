@@ -998,7 +998,7 @@ exports.accept = (client, channel, userName, opponent) => {
                                 //WIN
                                 if (CrandomValue > OrandomValue){
                                     //4.1//Update-existing-PP-length
-                                        var addedValue =  Number(OtrueValue) - Number(OrandomValue);
+                                        var addedValue =   Math.max(Number(0.001), Number(OtrueValue) - Number(OrandomValue));
                                         const updatedValue = await gsapi.spreadsheets.values.update({
                                             spreadsheetId: con.botSheet,
                                             range: `Data-!pp!C${OadjustedPPIndex}`,
@@ -1009,12 +1009,12 @@ exports.accept = (client, channel, userName, opponent) => {
                                         client.say(channel, `💪${trueCBadge}😈 => ☠️${trueOBadge}✂️`)
                                         setTimeout(() => {
                                             client.say(channel, `F.. ${opponent} got their ${trueOBadge} => ✂️ => ⛔${addedValue} mm`)
-                                        }, (1000));
+                                        }, (1500));
                                 }
                                 //LOSE
                                 if (CrandomValue < OrandomValue){
                                     //4.2//Update-existing-PP-length
-                                        var addedValue =  Number(CtrueValue) - Number(CrandomValue);
+                                        var addedValue =   Math.max(Number(0.001), Number(CtrueValue) - Number(CrandomValue));
                                         const updatedValue = await gsapi.spreadsheets.values.update({
                                             spreadsheetId: con.botSheet,
                                             range: `Data-!pp!C${CadjustedPPIndex}`,
@@ -1025,7 +1025,7 @@ exports.accept = (client, channel, userName, opponent) => {
                                         client.say(channel, `💪${trueOBadge}😈 => ☠️${trueCBadge}✂️`)
                                         setTimeout(() => {
                                             client.say(channel, `F.. ${userName} got their ${trueCBadge} => ✂️ => ⛔${addedValue} mm`)
-                                        }, (1000));
+                                        }, (1500));
                                 }
 
                             } catch(e) {console.error(e);};
@@ -1313,7 +1313,7 @@ exports.vaccept = (client, channel, userName, opponent) => {
                                 //WIN
                                 if (CrandomValue > OrandomValue){
                                     //4.1//Update-existing-PP-length
-                                        var addedOValue =  Number(OtrueValue) - Number(OrandomValue);
+                                        var addedOValue =  Math.max(Number(0.001), Number(OtrueValue) - Number(OrandomValue));;
                                         console.log( OtrueValue );
                                         console.log( OrandomValue );
                                         console.log( addedOValue );
@@ -1323,7 +1323,7 @@ exports.vaccept = (client, channel, userName, opponent) => {
                                             valueInputOption: "USER_ENTERED",
                                             resource: { values: [[addedOValue]] },
                                         });
-                                        var addedCValue =  Number(CtrueValue) + Number(CrandomValue);
+                                        var addedCValue =  Math.max(Number(0.001), Number(CtrueValue) + Number(CrandomValue));;
                                         console.log( CtrueValue );
                                         console.log( CrandomValue );
                                         console.log( addedCValue );
@@ -1337,12 +1337,12 @@ exports.vaccept = (client, channel, userName, opponent) => {
                                         client.say(channel, `💪${trueCBadge}💦 => ☠️${trueOBadge}💥`)
                                         setTimeout(() => {
                                             client.say(channel, `${userName} 😎gain${trueCBadge}➕${CrandomValue}   => ${opponent} 😵lost${trueOBadge}➖(${OrandomValue})`)
-                                        }, (1000));
+                                        }, (1500));
                                 }
                                 //LOSE
                                 if (CrandomValue < OrandomValue){
                                     //4.1//Update-existing-PP-length
-                                    var addedOValue =  Number(OtrueValue) + Number(OrandomValue);
+                                    var addedOValue =  Math.max(Number(0.001), Number(OtrueValue) + Number(OrandomValue));
                                     console.log( OtrueValue );
                                     console.log( OrandomValue );
                                     console.log( addedOValue );
@@ -1352,7 +1352,7 @@ exports.vaccept = (client, channel, userName, opponent) => {
                                         valueInputOption: "USER_ENTERED",
                                         resource: { values: [[addedOValue]] },
                                     });
-                                    var addedCValue =  Number(CtrueValue) - Number(CrandomValue);
+                                    var addedCValue =  Math.max(Number(0.001), Number(CtrueValue) - Number(CrandomValue));
                                     console.log( CtrueValue );
                                     console.log( CrandomValue );
                                     console.log( addedCValue );
@@ -1366,7 +1366,7 @@ exports.vaccept = (client, channel, userName, opponent) => {
                                     client.say(channel, `💪${trueOBadge}💦 => ☠️${trueCBadge}💥`)
                                     setTimeout(() => {
                                         client.say(channel, `${opponent} 😎gain${trueOBadge}➕${OrandomValue}   => ${userName} 😵lost${trueCBadge}➖(${CrandomValue})`)
-                                    }, (1000));
+                                    }, (1500));
                                 }
 
                             } catch(e) {console.error(e);};

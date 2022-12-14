@@ -3,7 +3,7 @@ const commands = {
 
 	//!ask
 	ask : {
-		response: '!chat // !B // !lurk // !lurkers // !pp // !checkpp // !viagra // !social'
+		response: '!chat // !B // !lurk // !lurkers // !pp // !checkpp // !viagra // !social // !time'
 	},
 
 	//Socials
@@ -96,6 +96,13 @@ const commands = {
 	},
 	gnorth   : {
 		response: 'Follow GalacticNorth for Sick Tunes! // https://www.youtube.com/channel/UCrDk8SEsiTooIRNhsYXF0EQ'
+	},
+	//MightyMeat
+	meat   : {
+		response: 'Check out MightyMeat on YT! // https://www.youtube.com/@mightymeat'
+	},
+	meats_meat   : {
+		response: 'Check out MightyMeat on Only Fans! // https://www.onlyfans.com/@mightymeat'
 	}
 
 };

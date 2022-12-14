@@ -15,8 +15,10 @@ try{
 	///Json
 	//Import-"message.json"
 	const reaction = require("../src/Jsons/reaction.json");
-	//Import-"message.json"
+	//Import-"time.json"
 	const time = require("../src/Jsons/time.json");
+	//Import-"loc.json"
+	const loc = require("../src/Jsons/loc.json");
 	//functions
 	const { joinObj } = require('./functions');
 ///API
@@ -25,6 +27,8 @@ try{
 	const { channel } = require('tmi.js/lib/utils');
 	//Import-GoogleSheets.api//
 	const {google} = require('googleapis');
+	//Moment.js
+	const moment = require('moment-timezone');
 
 
 ////TWITCH////
@@ -296,6 +300,42 @@ client.on("message", (channel, userstate, message, self) => {
 
 		}
 
+		//!viagra
+		if (command.toLocaleLowerCase() === 'viagra' || message.toLocaleLowerCase() === '!v') {
+
+			//IF-{userName}-is-NOT-in-{Horny-Jail}
+			console.log(`//// Current-Horny-Jail-Residents: ${con.viagraJail}`);
+			if(!con.viagraJail.includes(userName)) {
+
+				//Execute-!viagra
+				pp.viagra(client, channel, userName);
+
+				//{Horny-Jail}-Cooldown
+				con.viagraJail.push(userName);
+				console.log(`//// Updated-Horny-Jail-Residents: ${con.viagraJail}`);
+
+				//Remove-User-from-{Horny-Jail}
+					setTimeout(() => {
+						con.viagraJail = con.viagraJail.filter(u => u !== userName);
+					}, (con.viagraCooldown * 60 * 1000));
+
+			} 
+
+			//IF-{userName}-is-in-{Horny-Jail}
+			else {
+
+				//If-not-Host-Delete-Msg
+				if (userstate.badges == null && channel == "#xli24"){
+					client.deletemessage(channel, userstate["id"]);
+					pp.hornyJail(client, channel, userName, con.viagraCooldown);
+				} else {
+				//Execute-hornyJail
+				pp.hornyJail(client, channel, userName, con.viagraCooldown);
+				};
+
+			}
+
+		}
 		//!vfight
 		if (command.toLocaleLowerCase() === 'viagrafight' || command.toLocaleLowerCase() === 'vfight' || command.toLocaleLowerCase() === 'vf') {
 
@@ -390,42 +430,6 @@ client.on("message", (channel, userstate, message, self) => {
 			pp.checkppin(client, channel, userName)
 
 		}
-		//!viagra
-		if (command.toLocaleLowerCase() === 'viagra' || message.toLocaleLowerCase() === '!v') {
-
-			//IF-{userName}-is-NOT-in-{Horny-Jail}
-			console.log(`//// Current-Horny-Jail-Residents: ${con.viagraJail}`);
-			if(!con.viagraJail.includes(userName)) {
-
-				//Execute-!viagra
-				pp.viagra(client, channel, userName);
-
-				//{Horny-Jail}-Cooldown
-				con.viagraJail.push(userName);
-				console.log(`//// Updated-Horny-Jail-Residents: ${con.viagraJail}`);
-
-				//Remove-User-from-{Horny-Jail}
-					setTimeout(() => {
-						con.viagraJail = con.viagraJail.filter(u => u !== userName);
-					}, (con.viagraCooldown * 60 * 1000));
-
-			} 
-
-			//IF-{userName}-is-in-{Horny-Jail}
-			else {
-
-				//If-not-Host-Delete-Msg
-				if (userstate.badges == null && channel == "#xli24"){
-					client.deletemessage(channel, userstate["id"]);
-					pp.hornyJail(client, channel, userName, con.viagraCooldown);
-				} else {
-				//Execute-hornyJail
-				pp.hornyJail(client, channel, userName, con.viagraCooldown);
-				};
-
-			}
-
-		}
 		
 		//!socials
 		const { response } = com.commands[command] || {};
@@ -434,6 +438,41 @@ client.on("message", (channel, userstate, message, self) => {
 			} else if ( typeof response === 'string' ) {
 				client.say(channel, response);
 			}
+
+		//!time
+		if (command.toLocaleLowerCase() === 'time') {
+
+			//If-[Timezone]-is-NOT-[undefined] (argument IF filters)
+			if (typeof argument !== 'undefined' && argument !== ' ') {
+				if (argument)	{
+
+					//Convert-[arguement]-into-[value]-Format los_angeles => Los_Angeles
+					const value0 = argument.toLocaleLowerCase();	
+					const value = value0.replace(/\b\w/g, (match) => match.toUpperCase()).replace(/\s/g, '_');
+				
+					console.log(`${value}`);
+
+					//Convert-JSON-file
+					const locString = JSON.stringify(loc);
+					const locObject = JSON.parse(locString);
+	
+					if (locString.includes(value)) {
+	
+						//Find-[key]-of-[value]
+						const key = Object.keys(locObject).find(key => locObject[key].includes(value));
+						console.log(`${key}${value}`);
+						let currentTime = moment().tz(`${key}${value}`).format('ddd, h:mm A');
+						client.say(channel, `🕛 ${currentTime} in ${value} 🗺️`)
+	
+				  	} else {
+						console.log("The value does not exist in the Timezone List.")
+				  	}
+
+				}
+
+			}
+
+		}; 
 
 		//!wisdom
 		if (command.toLocaleLowerCase() === 'wisdom') {
