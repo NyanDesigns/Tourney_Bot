@@ -166,6 +166,72 @@ exports.logger = (client, channel, userName) => {
 
 }
 
+//!kingdong
+exports.kingdong = (client, channel, userName) => {
+
+    //Authorize-{Sheets}
+    con.gsClient.authorize(function(e, tokens){
+        if(e){
+            console.log(e);
+            return;
+        } else {
+            //console.log('Connected to Google-Sheets api.');
+            gsrun(con.gsClient);
+        }
+    });
+
+    //Connect-to-{Sheets}
+    async function gsrun(cl){
+        const gsapi = google.sheets({version:'v4', auth: cl });
+
+        //Get-{Sheet-Values}
+        const [, ...values] = (await gsapi.spreadsheets.values.get({ 
+            spreadsheetId: con.botSheet, 
+            range: con.ppUserRange
+        })).data.values;
+        console.log(`Existing Users, Values = ${[values] }`);
+
+        //Search-{userName}-in-{Sheet-Values}
+        //Filter-&-Reduce-List-into-One
+        const index = values.reduce((o, [a, ...v], i) => ((o[a] = i), o), {});
+        console.log(`index[item] = ${index[userName]}`);
+
+            //1//Get-existing-PP-length
+                const adjustedIndex = index[userName] + 3;
+                const existingValue = await gsapi.spreadsheets.values.get({
+                    spreadsheetId: con.botSheet,
+                    range: `Dash-!pp!D${adjustedIndex}:D${Number(adjustedIndex)+Number(2)}`,
+                });
+                const trueUserValue = existingValue.data.values;
+                //console.log(`existing value = ${trueValue}`);
+            //4//Get-existing-[ppBadge]
+                const adjustedPPIndex = index[userName] + 3;
+                //console.log(`Adjusted value = ${adjustedPPIndex}`);
+                const existingPPBadge = await gsapi.spreadsheets.values.get({
+                    spreadsheetId: con.botSheet,
+                    range: `Dash-!pp!C${adjustedPPIndex}:C${Number(adjustedIndex)+Number(2)}`,
+                });
+                const trueLenValue = existingPPBadge.data.values;
+            //2//Reply-{Length}-to-{userName}
+                function outputString(userValues, lenValues) {
+                    let result = '';
+                    for (let i = 0; i < userValues.length; i++) {
+                        if (i === 0) {
+                            result += '🥇' + userValues[i][0] + lenValues[i][0];
+                        } else if (i === 1) {
+                            result += '🥈' + userValues[i][0] + lenValues[i][0];
+                        } else if (i === 2) {
+                            result += '🥉' + userValues[i][0] + lenValues[i][0];
+                        }
+                    }
+                    return result;
+                }
+                client.say(channel, outputString(trueLenValue, trueUserValue));
+
+    } 
+    
+}
+
 ////COMMANDS////
 //!pp
 exports.pp = (client, channel, userName) => {

@@ -182,6 +182,14 @@ client.on("message", (channel, userstate, message, self) => {
 			console.log(con.lurkers);
 		}
 
+
+		//!kingdong
+		if (command.toLocaleLowerCase() === 'kingdong' || command.toLocaleLowerCase() === 'topg') {
+
+			pp.kingdong(client, channel, userName)
+
+		}
+
 		//!pp
 		if (command.toLocaleLowerCase() === 'pp') {
 
